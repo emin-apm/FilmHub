@@ -1,3 +1,4 @@
+import MovieCard from "../MovieCard/MovieCard";
 import styles from "./PopularMoviesStyles.module.css";
 
 export default function PopularMovies() {
@@ -10,6 +11,12 @@ export default function PopularMovies() {
             <i className="fa-solid fa-chevron-left"></i>
             <i className="fa-solid fa-chevron-right"></i>
           </div>
+        </div>
+        <div className={styles.movieSlider}>
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
         </div>
       </section>
     </>
