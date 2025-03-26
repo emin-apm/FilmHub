@@ -60,3 +60,13 @@ button {
 section {
     padding: 3rem 0 2rem;
 }
+
+html::-webkit-scrollbar {
+    width: 0.4rem;
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+    border-radius: 10px;
+}
