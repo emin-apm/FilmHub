@@ -33,8 +33,6 @@ export default function PopularMovies() {
       <Swiper
         ref={swiperRef}
         modules={[Navigation, Autoplay]}
-        // spaceBetween={1}
-        slidesPerView={6}
         loop={true}
         navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
         autoplay={{ delay: 3000 }}
@@ -45,7 +43,7 @@ export default function PopularMovies() {
           1440: { slidesPerView: 5, spaceBetween: 25 },
         }}
       >
-        {Array.from({ length: 25 }).map((_, index) => (
+        {Array.from({ length: 12 }).map((_, index) => (
           <SwiperSlide key={index} className={styles.swiper_slide}>
             <MovieCard />
           </SwiperSlide>
