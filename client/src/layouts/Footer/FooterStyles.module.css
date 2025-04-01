@@ -1,0 +1,29 @@
+.footer {
+    /* background-color: #0e0e0ec2; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 1em; */
+    flex-direction: column;
+}
+
+.socialsContainer {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    padding: 7px;
+    gap: 1em;
+}
+
+.socialsContainer a {
+    font-size: 2em;
+    transition: .2s ease-in-out;
+}
+
+.socialsContainer a:hover {
+    transform: scale(1.1);
+}
+
+.copyRight {
+    font-size: .8em;
+}

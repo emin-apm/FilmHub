@@ -1,15 +1,13 @@
-import Hero from "./components/Hero/Hero";
-import PopularMovies from "./components/PopularMovies/PopularMovies";
+import Footer from "./layouts/Footer/Footer";
 import Navbar from "./layouts/Navigation/Navbar";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <PopularMovies />
-      <PopularMovies />
-      <PopularMovies />
+      <HomePage />
+      <Footer />
     </>
   );
 }
