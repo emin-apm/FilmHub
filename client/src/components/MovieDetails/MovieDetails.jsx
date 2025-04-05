@@ -40,7 +40,19 @@ export default function MovieDetails() {
           hell-bent on decimating Gotham City. Together with Gordon and Harvey
           Dent, Batman struggles to thwart the Joker before it is too late.
         </p>
+        <p>
+          <strong>Director: </strong> Christopher Nolan
+        </p>
+        <p>
+          <strong>Budget: </strong> 180 million USD, 185 million USD
+        </p>
+        <p>
+          <strong>Distributed by: </strong> Warner Bros., Warner Bros. Pictures,
+          FilmFlex
+        </p>
       </div>
+
+      {/* 3th part movie sites */}
       <div className={styles.movieSites}>
         <div className={styles.siteContainer}>
           <div className={styles.siteBox}>
