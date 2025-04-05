@@ -135,3 +135,47 @@
     color: var(--main-color);
     transform: scale(1.1);
 }
+
+.movieDetails {
+    width: 100%;
+    margin: 50px auto 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.movieDetails h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.movieSite {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0px;
+}
+
+.siteBox {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+}
+
+.siteBox span,
+.siteBox a {
+    padding: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--main-color);
+}
+
+.siteBox span img {
+    width: 16px;
+    margin-right: 5px;
+}
