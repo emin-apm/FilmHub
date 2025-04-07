@@ -50,9 +50,13 @@ export default function MovieDetails() {
           <strong>Distributed by: </strong> Warner Bros., Warner Bros. Pictures,
           FilmFlex
         </p>
+        <p>
+          <strong>IMDb: </strong> 9/10 (3,004,530)
+        </p>
       </div>
 
       {/* 3th part movie sites */}
+
       <div className={styles.movieSites}>
         <div className={styles.siteContainer}>
           <div className={styles.siteBox}>
