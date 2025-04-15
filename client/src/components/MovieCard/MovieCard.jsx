@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import styles from "./MovieCardStyles.module.css";
 
 export default function MovieCard() {
   return (
-    <div className={styles.cardBox}>
-      <a href="" className={styles.cardOverlay}>
+    <Link className={styles.cardBox} to={"/movie/123"}>
+      <div href="/movie/123123" className={styles.cardOverlay}>
         <i className="fa-solid fa-play"></i>
-      </a>
+      </div>
 
       <div className={styles.mainSliderImg}>
         <img
@@ -27,6 +28,6 @@ export default function MovieCard() {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

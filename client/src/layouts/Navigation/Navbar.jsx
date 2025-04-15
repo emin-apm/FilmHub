@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./NavbarStyles.module.css";
 import porifilImg from "../../assets/profilImg.png";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
@@ -21,9 +22,9 @@ export default function Navbar() {
       </div>
 
       <div className={`${styles.nav} container`}>
-        <a href="" className={styles.logo}>
+        <Link to={"/"} className={styles.logo}>
           Film<span>Hub</span>
-        </a>
+        </Link>
         <div className={styles.searchBox}>
           <input type="search" placeholder="Search movie" />
           <i className="fa-solid fa-magnifying-glass"></i>
@@ -33,23 +34,23 @@ export default function Navbar() {
         </a>
         <div className={styles.navbar}>
           <a href="" className={styles.navLink}>
-            <i class="fa-solid fa-house"></i>
+            <i className="fa-solid fa-house"></i>
             <span>Home</span>
           </a>
           <a href="" className={styles.navLink}>
-            <i class="fa-solid fa-fire"></i>
+            <i className="fa-solid fa-fire"></i>
             <span>Trending</span>
           </a>
           <a href="" className={styles.navLink}>
-            <i class="fa-solid fa-compass"></i>
+            <i className="fa-solid fa-compass"></i>
             <span>Explore</span>
           </a>
           <a href="" className={styles.navLink}>
-            <i class="fa-solid fa-heart"></i>
+            <i className="fa-solid fa-heart"></i>
             <span>Favorites</span>
           </a>
           <a href="" className={styles.navLink}>
-            <i class="fa-solid fa-clapperboard"></i>
+            <i className="fa-solid fa-clapperboard"></i>
             <span>Watch Later</span>
           </a>
         </div>
