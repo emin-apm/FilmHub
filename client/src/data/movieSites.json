@@ -1,0 +1,43 @@
+{
+  "sites": [
+    {
+      "id": "1",
+      "language": "BG",
+      "site": "https://filmi9.com/",
+      "name": "Filmi9"
+    },
+    {
+      "id": "2",
+      "language": "BG",
+      "site": "https://vsi4kifilmi.com/",
+      "name": "Vsi4kiFilmi"
+    },
+    {
+      "id": "3",
+      "language": "BG",
+      "site": "https://filmizip.com/",
+      "name": "Filmizip"
+    },
+
+    {
+      "id": "4",
+      "language": "TR",
+      "site": "https://www.fullhdfilmizlesene.de/",
+      "name": "FullHDFilmIzlesene"
+    },
+
+    {
+      "id": "5",
+      "language": "TR",
+      "site": "https://www.hdfilmcehennemi.nl/",
+      "name": "HDFilmCehennemi"
+    },
+
+    {
+      "id": "6",
+      "language": "EN",
+      "site": "site link",
+      "name": "MovieStream"
+    }
+  ]
+}

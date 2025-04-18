@@ -2,8 +2,13 @@ import { useState } from "react";
 import TrailerModal from "../TrailerModal/TrailerModal";
 import styles from "./MovieDetailsStyles.module.css";
 
+import { sites } from "../../data/movieSites.json";
+import { Link } from "react-router-dom";
+
 export default function MovieDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log(sites);
 
   return (
     <section className={`container`}>
@@ -67,61 +72,33 @@ export default function MovieDetails() {
 
       <div className={styles.movieSites}>
         <div className={styles.siteContainer}>
-          <div className={styles.siteBox}>
-            <span>Filmi9 </span>
-            <span>
-              <img src="https://flagcdn.com/16x12/bg.png" alt="BG Flag" />
-              BG
-            </span>
-            <span>720p</span>
-            <a href="">Check out!</a>
-          </div>
-          <div className={styles.siteBox}>
-            <span>Vsi4kiFilmi </span>
-            <span>
-              <img src="https://flagcdn.com/16x12/bg.png" alt="BG Flag" />
-              BG
-            </span>
-
-            <span>720p</span>
-            <a href="">Check out!</a>
-          </div>
-          <div className={styles.siteBox}>
-            <span>Filmizip </span>
-            <span>
-              <img src="https://flagcdn.com/16x12/bg.png" alt="BG Flag" />
-              BG
-            </span>
-            <span>720p</span>
-            <a href="">Check out!</a>
-          </div>
-          <div className={styles.siteBox}>
-            <span>FullHDFilmIzlesene </span>
-            <span>
-              <img src="https://flagcdn.com/16x12/tr.png" alt="TR Flag" />
-              TR
-            </span>
-            <span>720p</span>
-            <a href="">Check out!</a>
-          </div>
-          <div className={styles.siteBox}>
-            <span>HDFilmCehennemi</span>
-            <span>
-              <img src="https://flagcdn.com/16x12/tr.png" alt="TR Flag" />
-              TR
-            </span>
-            <span>720p</span>
-            <a href="">Check out!</a>
-          </div>
-          <div className={styles.siteBox}>
-            <span>MovieStream</span>
-            <span>
-              <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" />
-              EN
-            </span>
-            <span>720p</span>
-            <a href="">Check out!</a>
-          </div>
+          {sites.map((x) => (
+            <div className={styles.siteBox} key={x.id}>
+              <span>{x.name} </span>
+              {x.language === "BG" && (
+                <span>
+                  <img src="https://flagcdn.com/16x12/bg.png" alt="BG Flag" />
+                  {x.language}
+                </span>
+              )}
+              {x.language === "TR" && (
+                <span>
+                  <img src="https://flagcdn.com/16x12/tr.png" alt="TR Flag" />
+                  {x.language}
+                </span>
+              )}
+              {x.language === "EN" && (
+                <span>
+                  <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" />
+                  {x.language}
+                </span>
+              )}
+              <span>720p</span>
+              <Link to={x.site} target="_blank">
+                Check out!
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>
