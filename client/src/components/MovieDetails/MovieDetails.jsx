@@ -1,8 +1,16 @@
+import { useState } from "react";
+import TrailerModal from "../TrailerModal/TrailerModal";
 import styles from "./MovieDetailsStyles.module.css";
 
 export default function MovieDetails() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className={`container`}>
+      <TrailerModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <div className={styles.movieBanner}>
         <div className={styles.mBannerImg}>
           <img
@@ -29,7 +37,7 @@ export default function MovieDetails() {
             </div>
           </div>
         </div>
-        <div className={styles.playButton}>
+        <div className={styles.playButton} onClick={() => setIsModalOpen(true)}>
           <i className="fa-solid fa-circle-play"></i>
         </div>
       </div>
