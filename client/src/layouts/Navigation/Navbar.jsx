@@ -33,26 +33,26 @@ export default function Navbar() {
           <img src={porifilImg} alt="profilImg" />
         </a>
         <div className={styles.navbar}>
-          <a href="" className={styles.navLink}>
+          <Link to={"/"} className={styles.navLink}>
             <i className="fa-solid fa-house"></i>
             <span>Home</span>
-          </a>
-          <a href="" className={styles.navLink}>
+          </Link>
+          <Link className={styles.navLink}>
             <i className="fa-solid fa-fire"></i>
             <span>Trending</span>
-          </a>
-          <a href="" className={styles.navLink}>
+          </Link>
+          <Link className={styles.navLink}>
             <i className="fa-solid fa-compass"></i>
             <span>Explore</span>
-          </a>
-          <a href="" className={styles.navLink}>
+          </Link>
+          <Link className={styles.navLink}>
             <i className="fa-solid fa-heart"></i>
             <span>Favorites</span>
-          </a>
-          <a href="" className={styles.navLink}>
+          </Link>
+          <Link className={styles.navLink}>
             <i className="fa-solid fa-clapperboard"></i>
             <span>Watch Later</span>
-          </a>
+          </Link>
         </div>
       </div>
     </header>
