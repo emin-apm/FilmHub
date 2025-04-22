@@ -1,0 +1,38 @@
+.notFoundContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 2em;
+    padding: 2em;
+}
+
+.content h1 {
+    font-size: 100px;
+    font-weight: 400;
+}
+
+.content h2 {
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.button {
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.media img {
+    width: 270px;
+}
