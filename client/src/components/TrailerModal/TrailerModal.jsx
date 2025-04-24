@@ -11,11 +11,12 @@ export default function TrailerModal({ isOpen, onClose }) {
         </button>
         <div className={styles.videoWrapper}>
           <iframe
-            src="https://www.youtube.com/embed/EXeTwQWrcwY"
+            key={isOpen ? "open" : "closed"}
+            src="https://www.youtube.com/embed/EXeTwQWrcwY?autoplay=1"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="Trailer"
-          ></iframe>
+          />
         </div>
       </div>
     </div>

@@ -4,11 +4,10 @@ import styles from "./MovieDetailsStyles.module.css";
 
 import { sites } from "../../data/movieSites.json";
 import { Link } from "react-router-dom";
+import MovieSites from "./MovieSites";
 
 export default function MovieDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  console.log(sites);
 
   return (
     <section className={`container`}>
@@ -35,7 +34,6 @@ export default function MovieDetails() {
                 <span>2h 32m</span>
               </div>
             </div>
-
             <div className={styles.categories}>
               <a href="">Action</a>
               <a href="">Crime</a>
@@ -69,38 +67,7 @@ export default function MovieDetails() {
       </div>
 
       {/* 3th part movie sites */}
-
-      <div className={styles.movieSites}>
-        <div className={styles.siteContainer}>
-          {sites.map((x) => (
-            <div className={styles.siteBox} key={x.id}>
-              <span>{x.name} </span>
-              {x.language === "BG" && (
-                <span>
-                  <img src="https://flagcdn.com/16x12/bg.png" alt="BG Flag" />
-                  {x.language}
-                </span>
-              )}
-              {x.language === "TR" && (
-                <span>
-                  <img src="https://flagcdn.com/16x12/tr.png" alt="TR Flag" />
-                  {x.language}
-                </span>
-              )}
-              {x.language === "EN" && (
-                <span>
-                  <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" />
-                  {x.language}
-                </span>
-              )}
-              <span>720p</span>
-              <Link to={x.site} target="_blank">
-                Check out!
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MovieSites />
     </section>
   );
 }
