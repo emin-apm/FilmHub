@@ -6,7 +6,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-export default function PopularMovies() {
+export default function PopularMovies({ title, movies }) {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
@@ -23,7 +23,7 @@ export default function PopularMovies() {
   return (
     <section className={`${styles.popular} container`}>
       <div className={styles.heading}>
-        <h2 className={styles.headingTitle}>Popular Movies</h2>
+        <h2 className={styles.headingTitle}>{title}</h2>
         <div className={styles.arrows}>
           <i className="fa-solid fa-chevron-left" ref={prevRef}></i>
           <i className="fa-solid fa-chevron-right" ref={nextRef}></i>
@@ -33,7 +33,7 @@ export default function PopularMovies() {
       <Swiper
         ref={swiperRef}
         modules={[Navigation, Autoplay]}
-        loop={true}
+        loop={movies?.length > 5}
         navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
         autoplay={{ delay: 3000 }}
         breakpoints={{
@@ -43,9 +43,9 @@ export default function PopularMovies() {
           1440: { slidesPerView: 5, spaceBetween: 25 },
         }}
       >
-        {Array.from({ length: 12 }).map((_, index) => (
+        {movies?.map((movie, index) => (
           <SwiperSlide key={index} className={styles.swiper_slide}>
-            <MovieCard />
+            <MovieCard movie={movie} />{" "}
           </SwiperSlide>
         ))}
       </Swiper>
