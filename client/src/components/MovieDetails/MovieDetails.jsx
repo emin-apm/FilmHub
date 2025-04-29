@@ -1,42 +1,87 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TrailerModal from "../TrailerModal/TrailerModal";
 import styles from "./MovieDetailsStyles.module.css";
-
-import { sites } from "../../data/movieSites.json";
-import { Link } from "react-router-dom";
 import MovieSites from "./MovieSites";
+import { useParams } from "react-router-dom";
+import { useMovieDetails } from "../../utils/useMovieDetails";
+import Spiner from "../Spiner/Spiner";
+import { formattedDate } from "../../utils/dateConvert";
+import axios from "axios";
+
+const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export default function MovieDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [trailerUrl, setTrailerUrl] = useState(null);
+  const { id } = useParams();
 
+  const { data: movie, isLoading, error } = useMovieDetails(id);
+
+  useEffect(() => {
+    const fetchTrailer = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/movie/${id}/videos`, {
+          params: {
+            api_key: API_KEY,
+          },
+        });
+        const trailers = res.data.results;
+        const youtubeTrailer = trailers.find(
+          (video) => video.site === "YouTube" && video.type === "Trailer"
+        );
+        if (youtubeTrailer) {
+          setTrailerUrl(
+            `https://www.youtube.com/embed/${youtubeTrailer.key}?autoplay=1`
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching trailer:", error);
+      }
+    };
+
+    if (id) {
+      fetchTrailer();
+    }
+  }, [id]);
+
+  if (isLoading) {
+    return <Spiner />;
+  }
+
+  console.log(trailerUrl);
   return (
     <section className={`container`}>
       <TrailerModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        trailerUrl={trailerUrl}
       />
       <div className={styles.movieBanner}>
         <div className={styles.mBannerImg}>
           <img
-            src="https://theconsultingdetectivesblog.com/wp-content/uploads/2014/06/the-dark-knight-original.jpg"
-            alt=""
+            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+            alt="Movie Banner"
           />
         </div>
         <div className={styles.bannerContainer}>
           <div className={styles.titleContainer}>
-            <h1>The Dark Knight</h1>
+            <h1>{movie.title}</h1>
             <div className={styles.moreAbout}>
               <div className={styles.raiting}>
-                <span>IMDB 9.0</span>
+                <span>IMDB {movie.vote_average.toFixed(1)}</span>
               </div>
               <div className={styles.metaData}>
-                <span>17 July 2008</span>
-                <span>2h 32m</span>
+                <span>{formattedDate(movie.release_date)}</span>
+                <span>{movie.runtime}m</span>
               </div>
             </div>
             <div className={styles.categories}>
-              <a href="">Action</a>
-              <a href="">Crime</a>
+              {movie.genres.map((genre) => (
+                <a key={genre.id} href="#">
+                  {genre.name}
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -45,28 +90,34 @@ export default function MovieDetails() {
         </div>
       </div>
       <div className={styles.movieDetails}>
-        <h1>The Dark Knight</h1>
+        <h1>{movie.title}</h1>
+        <p>{movie.overview}</p>
         <p>
-          Batman has a new foe, the Joker, who is an accomplished criminal
-          hell-bent on decimating Gotham City. Together with Gordon and Harvey
-          Dent, Batman struggles to thwart the Joker before it is too late.
+          <strong>Budget: </strong> ${movie.budget.toLocaleString()}
         </p>
         <p>
-          <strong>Director: </strong> Christopher Nolan
-        </p>
-        <p>
-          <strong>Budget: </strong> 180 million USD, 185 million USD
-        </p>
-        <p>
-          <strong>Distributed by: </strong> Warner Bros., Warner Bros. Pictures,
-          FilmFlex
+          <strong>Distributed by: </strong>
+          {movie.production_companies &&
+          movie.production_companies.length > 0 ? (
+            movie.production_companies.map((company) => (
+              <span key={company.id}>
+                {company.name}
+                {company.id !==
+                  movie.production_companies[
+                    movie.production_companies.length - 1
+                  ].id && ", "}
+              </span>
+            ))
+          ) : (
+            <span>Not Available</span>
+          )}
         </p>
         <p>
           <strong>IMDb: </strong> 9/10 (3,004,530)
         </p>
       </div>
 
-      {/* 3th part movie sites */}
+      {/* 3rd party movie sites */}
       <MovieSites />
     </section>
   );
