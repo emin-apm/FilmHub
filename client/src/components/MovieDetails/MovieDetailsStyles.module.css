@@ -54,6 +54,10 @@
     letter-spacing: 1px;
 }
 
+.tagline {
+    padding-bottom: .6em;
+}
+
 .moreAbout {
     display: flex;
     align-items: center;
