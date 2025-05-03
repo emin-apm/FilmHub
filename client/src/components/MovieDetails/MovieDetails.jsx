@@ -10,14 +10,15 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const OMBD_API_KEY = import.meta.env.VITE_OMBD_API_KEY;
 
 export default function MovieDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState(null);
+  const [imdbRating, setImdbRating] = useState(null);
   const { id } = useParams();
 
   const { data: movie, isLoading, error } = useMovieDetails(id);
-
   useEffect(() => {
     const fetchTrailer = async () => {
       try {
@@ -45,11 +46,34 @@ export default function MovieDetails() {
     }
   }, [id]);
 
+  useEffect(() => {
+    const fetchImdbRaiting = async () => {
+      if (!movie?.imdb_id) return;
+
+      try {
+        const res = await axios.get(`https://www.omdbapi.com/`, {
+          params: {
+            apikey: OMBD_API_KEY,
+            i: movie.imdb_id,
+          },
+        });
+
+        if (res.data) {
+          setImdbRating(res.data);
+        }
+      } catch (error) {
+        console.error("Error fetching imdb score:", error);
+      }
+    };
+    fetchImdbRaiting();
+  }, [movie?.imdb_id]);
+
   if (isLoading) {
     return <Spiner />;
   }
 
-  console.log(trailerUrl);
+  console.log(imdbRating);
+
   return (
     <section className={`container`}>
       <TrailerModal
@@ -69,7 +93,7 @@ export default function MovieDetails() {
             <h1>{movie.title}</h1>
             <div className={styles.moreAbout}>
               <div className={styles.raiting}>
-                <span>IMDB {movie.vote_average.toFixed(1)}</span>
+                <span>IMDB {imdbRating?.imdbRating}</span>
               </div>
               <div className={styles.metaData}>
                 <span>{formattedDate(movie.release_date)}</span>
@@ -113,7 +137,8 @@ export default function MovieDetails() {
           )}
         </p>
         <p>
-          <strong>IMDb: </strong> 9/10 (3,004,530)
+          <strong>IMDb: </strong>
+          {imdbRating?.imdbRating} ({imdbRating?.imdbVotes})
         </p>
       </div>
 

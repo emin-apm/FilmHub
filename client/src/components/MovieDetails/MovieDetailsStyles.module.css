@@ -168,18 +168,24 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
+
 }
 
 .siteBox span,
 .siteBox a {
     padding: 13px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
     border: 1px solid var(--main-color);
 }
 
+
+
 .siteBox span img {
-    width: 16px;
+    width: 18px;
     margin-right: 5px;
 }
