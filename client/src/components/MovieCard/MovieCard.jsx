@@ -3,7 +3,6 @@ import styles from "./MovieCardStyles.module.css";
 import { formattedDate } from "../../utils/dateConvert";
 
 export default function MovieCard({ movie }) {
-  console.log(movie);
   return (
     <Link className={styles.cardBox} to={`/movie/${movie.id}`}>
       <div href="/movie/123123" className={styles.cardOverlay}>
