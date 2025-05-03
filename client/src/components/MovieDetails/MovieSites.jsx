@@ -29,9 +29,13 @@ export default function MovieSites({ title }) {
               </span>
             )}
             <span>720p</span>
-            <Link to={`${x.site}${title}`} target="_blank">
+            <a
+              href={`${x.site}${title}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Check out!
-            </Link>
+            </a>
           </div>
         ))}
       </div>
