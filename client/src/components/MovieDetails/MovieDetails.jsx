@@ -21,6 +21,7 @@ export default function MovieDetails() {
   const { id } = useParams();
 
   const { data: movie, isLoading, error } = useMovieDetails(id);
+
   useEffect(() => {
     const fetchTrailer = async () => {
       try {
@@ -73,8 +74,6 @@ export default function MovieDetails() {
   if (isLoading) {
     return <Spiner />;
   }
-
-  console.log(imdbRating);
 
   return (
     <section className={`container`}>
@@ -145,7 +144,7 @@ export default function MovieDetails() {
       </div>
 
       {/* 3rd party movie sites */}
-      <MovieSites />
+      <MovieSites title={movie.title} />
     </section>
   );
 }

@@ -9,32 +9,25 @@
     {
       "id": "2",
       "language": "BG",
-      "site": "https://vsi4kifilmi.com/",
+      "site": "https://vsi4kifilmi.com/?s=",
       "name": "Vsi4kiFilmi"
     },
     {
       "id": "3",
       "language": "BG",
-      "site": "https://filmizip.com/",
+      "site": "https://vsi4kifilmi.com/?s=",
       "name": "Filmizip"
     },
 
     {
       "id": "4",
       "language": "TR",
-      "site": "https://www.fullhdfilmizlesene.de/",
-      "name": "FullHDFilmIzlesene"
-    },
-
-    {
-      "id": "5",
-      "language": "TR",
-      "site": "https://www.hdfilmcehennemi.nl/",
+      "site": "https://www.fullhdfilmizlesene.de/film/",
       "name": "HDFilmCehennemi"
     },
 
     {
-      "id": "6",
+      "id": "5",
       "language": "EN",
       "site": "site link",
       "name": "MovieStream"

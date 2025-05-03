@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { sites } from "../../data/movieSites.json";
 
-export default function MovieSites() {
+export default function MovieSites({ title }) {
   return (
     <div className={styles.movieSites}>
       <div className={styles.siteContainer}>
@@ -29,7 +29,7 @@ export default function MovieSites() {
               </span>
             )}
             <span>720p</span>
-            <Link to={x.site} target="_blank">
+            <Link to={`${x.site}${title}`} target="_blank">
               Check out!
             </Link>
           </div>
