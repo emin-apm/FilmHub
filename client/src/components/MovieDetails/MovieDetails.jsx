@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
-import TrailerModal from "../TrailerModal/TrailerModal";
 import styles from "./MovieDetailsStyles.module.css";
+import TrailerModal from "../TrailerModal/TrailerModal";
 import MovieSites from "./MovieSites";
-import { useParams } from "react-router-dom";
-import { useMovieDetails } from "../../utils/useMovieDetails";
 import Spiner from "../Spiner/Spiner";
-import { formattedDate } from "../../utils/dateConvert";
+
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+
+import { useMovieDetails } from "../../utils/useMovieDetails";
+import { formattedDate } from "../../utils/dateConvert";
 
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
