@@ -4,11 +4,11 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export const useMovieTrailer = (id) => {
+export const useMovieTrailer = (movieId) => {
   return useQuery({
-    queryKey: ["movieTrailer", id],
+    queryKey: ["movieTrailer", movieId],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/movie/${id}/videos`, {
+      const res = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, {
         params: { api_key: API_KEY },
       });
 
@@ -21,6 +21,6 @@ export const useMovieTrailer = (id) => {
         ? `https://www.youtube.com/embed/${youtubeTrailer.key}?autoplay=1`
         : null;
     },
-    enabled: !!id,
+    enabled: !!movieId,
   });
 };
