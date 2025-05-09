@@ -27,3 +27,9 @@
 .copyRight {
     font-size: .8em;
 }
+
+@media(max-width:1170px) {
+    .footer {
+        margin-bottom: 4em;
+    }
+}
