@@ -41,7 +41,7 @@ export default function Navbar() {
             <i className="fa-solid fa-fire"></i>
             <span>Trending</span>
           </Link>
-          <Link className={styles.navLink}>
+          <Link to={"/explore"} className={styles.navLink}>
             <i className="fa-solid fa-compass"></i>
             <span>Explore</span>
           </Link>
