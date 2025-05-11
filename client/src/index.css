@@ -55,6 +55,7 @@ button {
     max-width: 80%;
     width: 100%;
     margin: auto;
+    box-sizing: border-box;
 }
 
 section {

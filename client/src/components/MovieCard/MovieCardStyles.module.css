@@ -1,11 +1,12 @@
 .cardBox {
-    width: 300px;
-    height: 450px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.01);
     border: 1px solid #0e0e0ec2;
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mainSliderImg {
