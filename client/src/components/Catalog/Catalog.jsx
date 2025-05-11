@@ -18,9 +18,9 @@ export default function Catalog({
         {Object.entries(genres).map(([id, name]) => (
           <button
             key={id}
-            onClick={() => handleGenreToggle(Number(id))}
+            onClick={() => handleGenreToggle(id)}
             className={
-              selectedGenres.includes(Number(id))
+              selectedGenres.includes(id)
                 ? styles.selectedButton
                 : styles.button
             }
