@@ -1,13 +1,26 @@
 import { useState } from "react";
 import styles from "./NavbarStyles.module.css";
 import porifilImg from "../../assets/profilImg.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setIsActive(!isActive);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchQuery) {
+      navigate(`/explore?search=${encodeURIComponent(searchQuery)}`);
+    }
   };
 
   return (
@@ -25,31 +38,51 @@ export default function Navbar() {
         <Link to={"/"} className={styles.logo}>
           Film<span>Hub</span>
         </Link>
-        <div className={styles.searchBox}>
-          <input type="search" placeholder="Search movie" />
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
+
+        <form className={styles.searchBox} onSubmit={handleSearchSubmit}>
+          <input
+            type="search"
+            placeholder="Search movie"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <button type="submit">
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+
+        {/* User profile icon */}
         <a href="" className={styles.user}>
-          <img src={porifilImg} alt="profilImg" />
+          <img src={porifilImg} alt="Profile Img" />
         </a>
+
+        {/* Navbar Links */}
         <div className={styles.navbar}>
-          <Link to={"/"} className={styles.navLink}>
+          <Link
+            to={"/"}
+            className={styles.navLink}
+            onClick={() => setSearchQuery("")}
+          >
             <i className="fa-solid fa-house"></i>
             <span>Home</span>
           </Link>
-          <Link className={styles.navLink}>
+          <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
             <i className="fa-solid fa-fire"></i>
             <span>Trending</span>
           </Link>
-          <Link to={"/explore"} className={styles.navLink}>
+          <Link
+            to={"/explore"}
+            className={styles.navLink}
+            onClick={() => setSearchQuery("")}
+          >
             <i className="fa-solid fa-compass"></i>
             <span>Explore</span>
           </Link>
-          <Link className={styles.navLink}>
+          <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
             <i className="fa-solid fa-heart"></i>
             <span>Favorites</span>
           </Link>
-          <Link className={styles.navLink}>
+          <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
             <i className="fa-solid fa-clapperboard"></i>
             <span>Watch Later</span>
           </Link>
