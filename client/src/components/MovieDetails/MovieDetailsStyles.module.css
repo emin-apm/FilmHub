@@ -98,6 +98,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: .5em;
+    flex-wrap: wrap;
 }
 
 .categories a {
