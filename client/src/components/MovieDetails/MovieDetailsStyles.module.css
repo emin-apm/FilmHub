@@ -1,267 +1,267 @@
 .movieBanner {
-    position: relative;
-    z-index: 50;
+  position: relative;
+  z-index: 50;
 }
 
 .movieBanner::before {
-    content: "";
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    background: rgba(32, 32, 32, 0.7);
-    background: linear-gradient(0deg, rgba(8, 8, 8)0%, rgba(0, 0, 0, 0.2)100%);
-    border-radius: 5px;
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(32, 32, 32, 0.7);
+  background: linear-gradient(0deg, rgba(8, 8, 8) 0%, rgba(0, 0, 0, 0.2) 100%);
+  border-radius: 5px;
 }
 
 .mBannerImg {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    margin-top: 3.6em;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-top: 3.6em;
 }
 
 .mBannerImg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .bannerContainer {
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    position: absolute;
-    top: 54%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  position: absolute;
+  top: 54%;
 }
 
 .titleContainer {
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    padding-left: 2em;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 2em;
 }
 
 .titleContainer h1 {
-    font-weight: 600;
-    font-size: 2.3rem;
-    line-height: 50px;
-    letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 50px;
+  line-height: 0.9;
+  margin-bottom: 14px;
 }
 
 .tagline {
-    padding-bottom: .6em;
+  padding-bottom: 0.6em;
 }
 
 .moreAbout {
-    display: flex;
-    align-items: center;
-    gap: .4em;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
 }
 
 .metaData {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .7em;
-    margin: 0 .7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  margin: 0 0.7em;
 }
 
 .metaData span {
-    font-weight: 400;
-    font-size: 10px;
+  font-weight: 400;
+  font-size: 10px;
 }
 
 .raiting {
-    font-weight: 600;
-    font-size: 11px;
-    display: flex;
+  font-weight: 600;
+  font-size: 11px;
+  display: flex;
 }
 
 .raiting span {
-    background-color: #F5C518;
-    font-size: 11px;
-    border-radius: 2px;
-    padding: 0px 2px;
-    color: black;
-    text-transform: uppercase;
-    padding: 0 5px;
+  background-color: #f5c518;
+  font-size: 11px;
+  border-radius: 2px;
+  padding: 0px 2px;
+  color: black;
+  text-transform: uppercase;
+  padding: 0 5px;
 }
 
 .categories {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .5em;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5em;
+  flex-wrap: wrap;
 }
 
 .categories a {
-    margin: .3em 0;
-    padding: 0 8px;
-    font-size: .8rem;
-    border-radius: 3px;
-    background: linear-gradient(90deg, rgba(180, 180, 180, 0.3) 0%, rgba(240, 240, 240, 0.3) 100%);
-    backdrop-filter: blur(40px);
-    font-weight: 500;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+  margin: 0.3em 0;
+  padding: 0 8px;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(180, 180, 180, 0.3) 0%,
+    rgba(240, 240, 240, 0.3) 100%
+  );
+  backdrop-filter: blur(40px);
+  font-weight: 500;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
 }
 
 .playButton {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    backdrop-filter: blur(10px);
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .playButton i {
-    font-size: 50px;
-    transition: .2s ease-in-out;
+  font-size: 50px;
+  transition: 0.2s ease-in-out;
 }
 
 .playButton:hover {
-    box-shadow: 0 0 40px var(--main-color), 0 0 40px var(--main-color);
-    transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 40px var(--main-color), 0 0 40px var(--main-color);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .playButton i:hover {
-    color: var(--main-color);
-    transform: scale(1.1);
+  color: var(--main-color);
+  transform: scale(1.1);
 }
 
 .movieDetails {
-    width: 100%;
-    margin: 50px auto 20px auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
+  width: 100%;
+  margin: 50px auto 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
 }
 
 .movieDetails h1 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .movieSite {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 50px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0px;
 }
 
 .siteBox {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
 }
 
 .siteBox span,
 .siteBox a {
-    padding: 13px;
-    display: inline-block;
-    width: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: center;
-    border: 1px solid var(--main-color);
+  padding: 13px;
+  display: inline-block;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  border: 1px solid var(--main-color);
 }
-
-
 
 .siteBox span img {
-    width: 18px;
-    margin-right: 5px;
+  width: 18px;
+  margin-right: 5px;
 }
 
+@media (min-width: 1450px) {
+  .titleContainer h1 {
+    font-size: 4rem;
+  }
 
-@media(min-width:1450px) {
-    .titleContainer h1 {
-        font-size: 4rem;
-    }
+  .raiting span {
+    font-size: 0.9rem;
+  }
 
-    .raiting span {
-        font-size: .9rem;
-    }
+  .metaData span {
+    font-size: 0.9rem;
+  }
 
-    .metaData span {
-        font-size: .9rem;
-    }
-
-    .categories a {
-        font-size: 1rem;
-    }
-
+  .categories a {
+    font-size: 1rem;
+  }
 }
 
-
-@media(max-width:1400px) {}
+@media (max-width: 1400px) {
+}
 
 @media (max-width: 768px) {
-    .bannerContainer {
-        flex-direction: column;
-        align-items: flex-start;
-        top: 50%;
-        transform: translateY(-50%);
-        padding: 0 1em;
-    }
+  .bannerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 1em;
+  }
 
-    .titleContainer {
-        padding-left: 0;
-        max-width: 100%;
-    }
+  .titleContainer {
+    padding-left: 0;
+    max-width: 100%;
+  }
 
-    .titleContainer h1 {
-        font-size: 1.8rem;
-        line-height: 1.2;
-    }
+  .titleContainer h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
 
-    .metaData span,
-    .raiting span {
-        font-size: 0.75rem;
-    }
+  .metaData span,
+  .raiting span {
+    font-size: 0.75rem;
+  }
 
-    .playButton {
-        top: auto;
-        left: auto;
-        transform: none;
-        bottom: 10%;
-        right: 5%;
-    }
+  .playButton {
+    top: auto;
+    left: auto;
+    transform: none;
+    bottom: 10%;
+    right: 5%;
+  }
 
-    .playButton i {
-        font-size: 36px;
-    }
+  .playButton i {
+    font-size: 36px;
+  }
 
-    .movieDetails h1 {
-        font-size: 1rem;
-        text-align: center;
-    }
+  .movieDetails h1 {
+    font-size: 1rem;
+    text-align: center;
+  }
 
-    .siteBox {
-        grid-template-columns: repeat(1fr);
-    }
+  .siteBox {
+    grid-template-columns: repeat(1fr);
+  }
 
-    .siteBox span,
-    .siteBox a {
-        padding: 10px;
-        font-size: 0.8rem;
-    }
+  .siteBox span,
+  .siteBox a {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
 }

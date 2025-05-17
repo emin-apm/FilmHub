@@ -1,5 +1,4 @@
 import styles from "./MovieDetailsStyles.module.css";
-import { Link } from "react-router-dom";
 
 import { sites } from "../../data/movieSites.json";
 
