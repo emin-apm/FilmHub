@@ -1,75 +1,33 @@
-import { useQuery } from "@tanstack/react-query";
 import Hero from "../components/Hero/Hero";
 import PopularMovies from "../components/PopularMovies/PopularMovies";
-import axios from "axios";
+import useGetData from "../hooks/useGetData";
 
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export default function HomePage() {
   const {
     data: popularMovies,
     isLoading: popularIsLoading,
     error: popularError,
-  } = useQuery({
-    queryKey: ["popularMovies"],
-    queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/movie/popular`, {
-        params: {
-          api_key: API_KEY,
-        },
-      });
-      return res.data.results;
-    },
-  });
+  } = useGetData("popularMovies", `${BASE_URL}/movie/popular`);
 
   const {
     data: topRated,
     isLoading: topRatedIsLoading,
     error: topRatedError,
-  } = useQuery({
-    queryKey: ["topRatedMovies"],
-    queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/movie/top_rated`, {
-        params: {
-          api_key: API_KEY,
-        },
-      });
-      return res.data.results;
-    },
-  });
+  } = useGetData("topRatedMovies", `${BASE_URL}/movie/top_rated`);
 
   const {
     data: latestMovies,
     isLoading: latestIsLoading,
     error: latestError,
-  } = useQuery({
-    queryKey: ["latestMovie"],
-    queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/movie/upcoming`, {
-        params: {
-          api_key: API_KEY,
-        },
-      });
-      return res.data.results;
-    },
-  });
+  } = useGetData("latestMovie", `${BASE_URL}/movie/upcoming`);
 
   const {
     data: nowPlaying,
     isLoading: nowPlayingIsLoading,
     error: nowPlayingError,
-  } = useQuery({
-    queryKey: ["nowPlayingMovies"],
-    queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/movie/now_playing`, {
-        params: {
-          api_key: API_KEY,
-        },
-      });
-      return res.data.results;
-    },
-  });
+  } = useGetData("nowPlayingMovies", `${BASE_URL}/movie/now_playing`);
 
   return (
     <>
