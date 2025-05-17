@@ -37,7 +37,7 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
               </div>
             </div>
             <div className={styles.categories}>
-              {movie.genres.map((genre) => (
+              {movie.genres?.map((genre) => (
                 <a key={genre.id} href="#">
                   {genre.name}
                 </a>
@@ -45,7 +45,11 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
             </div>
           </div>
         </div>
-        <div className={styles.playButton} onClick={() => setIsModalOpen(true)}>
+        <div
+          className={styles.playButton}
+          onClick={() => setIsModalOpen(true)}
+          aria-label={`Play trailer for ${movie.title}`}
+        >
           <i className="fa-solid fa-circle-play"></i>
         </div>
       </div>

@@ -50,7 +50,6 @@
 .titleContainer h1 {
   font-weight: 600;
   font-size: 2rem;
-  line-height: 50px;
   line-height: 0.9;
   margin-bottom: 14px;
 }
@@ -88,10 +87,9 @@
   background-color: #f5c518;
   font-size: 11px;
   border-radius: 2px;
-  padding: 0px 2px;
+  padding: 0 5px;
   color: black;
   text-transform: uppercase;
-  padding: 0 5px;
 }
 
 .categories {
@@ -162,37 +160,73 @@
   letter-spacing: 1px;
 }
 
+/* MovieSites Table Styles */
 .movieSite {
+  margin: 50px auto;
+  width: 100%;
+  font-family: Arial, sans-serif;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 50px 0px;
 }
 
 .siteBox {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-}
-
-.siteBox span,
-.siteBox a {
-  padding: 13px;
-  display: inline-block;
   width: 100%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
   border: 1px solid var(--main-color);
+  border-collapse: collapse;
+  margin-top: 1em;
 }
 
-.siteBox span img {
-  width: 18px;
-  margin-right: 5px;
+.siteBox thead {
+  background-color: var(--main-color);
+  color: #fff;
 }
 
+.siteBox th,
+.siteBox td {
+  border: 1px solid var(--main-color);
+  padding: 12px 15px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.siteBox th {
+  font-weight: 600;
+}
+
+.siteBox tbody tr:hover {
+  background-color: rgba(245, 197, 24, 0.2);
+}
+
+.siteBox td img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.checkButton {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+  transition: ease-in-out 0.2s;
+}
+
+.checkButton:hover {
+  background-color: #e6b800; /* slightly lighter/darker on hover */
+  color: #000;
+  scale: 1.07;
+}
+
+/* Responsive */
 @media (min-width: 1450px) {
   .titleContainer h1 {
     font-size: 4rem;
@@ -212,6 +246,7 @@
 }
 
 @media (max-width: 1400px) {
+  /* You can add styles here if needed */
 }
 
 @media (max-width: 768px) {
@@ -255,13 +290,28 @@
     text-align: center;
   }
 
-  .siteBox {
-    grid-template-columns: repeat(1fr);
+  /* Remove grid-template-columns from .siteBox since this is a table */
+  .movieSite {
+    max-width: 100%;
+    overflow-x: auto;
   }
 
-  .siteBox span,
-  .siteBox a {
-    padding: 10px;
-    font-size: 0.8rem;
+  .siteBox th,
+  .siteBox td {
+    padding: 3px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .siteBox th,
+  .siteBox td {
+    padding: 4px 7.2px; /* reduce padding */
+    font-size: 0.6rem; /* smaller font */
+  }
+
+  .checkButton {
+    padding: 4px 8px; /* smaller button padding */
+    font-size: 0.7rem; /* smaller font on button */
   }
 }
