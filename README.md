@@ -76,8 +76,8 @@ Contributions are welcome! Feel free to open an issue or submit a pull request w
 
 ## 📄 License
 
-MIT License
+[MIT License](./LICENSE)
 
 ## 📬 Contact
 
-Created by [@yourusername](https://github.com/yourusername) – reach out anytime!
+Created by [@emin-apm](https://github.com/emin-apm) – reach out anytime!
