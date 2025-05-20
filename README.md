@@ -4,7 +4,7 @@
 
 ## 🌍 Live Demo
 
-🔗 [https://filmhub-dev.web.app](https://filmhub-dev.web.app)
+<a href="https://filmhub-dev.web.app/" target="_blank">👉 Try Filmhub Now</a>
 
 ## 🚀 Features
 
