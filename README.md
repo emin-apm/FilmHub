@@ -2,6 +2,10 @@
 
 **Filmhub** is a React web application that allows users to search for movies and view detailed information like IMDb ratings. It also offers one-click access to third-party platforms for watching the movies.
 
+## 🌍 Live Demo
+
+🔗 [https://filmhub-dev.web.app](https://filmhub-dev.web.app)
+
 ## 🚀 Features
 
 - Search movies by name
