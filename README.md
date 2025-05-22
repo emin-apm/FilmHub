@@ -43,7 +43,7 @@ src/
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/filmhub.git
+git clone https://github.com/emin-apm/filmhub.git
 cd filmhub
 npm install
 ```
