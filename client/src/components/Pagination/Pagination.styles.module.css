@@ -3,4 +3,19 @@
   align-items: center;
   justify-content: center;
   gap: 1em;
+  margin-bottom: 1.3em;
+}
+.pagesContainer button {
+  color: var(--main-color);
+  font-weight: 800;
+  font-size: 20px;
+}
+.mainPage {
+  color: var(--main-color);
+  font-size: 1.8em;
+  cursor: pointer;
+}
+.pages {
+  font-size: 1.3rem;
+  cursor: pointer;
 }
