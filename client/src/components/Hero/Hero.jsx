@@ -9,7 +9,10 @@ export default function Hero() {
         <h1 className={styles.heroTitle}>
           Film<span>Hub</span>
         </h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad, ab.</p>
+        <p>
+          Everything you're looking for in one place! Discover, stream, and
+          enjoy without limits.
+        </p>
         <a href="" className={styles.watchButton}>
           <i className="fa-solid fa-circle-play"></i>
           <span>Watch movie</span>
