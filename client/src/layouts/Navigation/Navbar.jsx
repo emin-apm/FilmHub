@@ -66,7 +66,11 @@ export default function Navbar() {
             <i className="fa-solid fa-house"></i>
             <span>Home</span>
           </Link>
-          <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
+          <Link
+            to={"/trending"}
+            className={styles.navLink}
+            onClick={() => setSearchQuery("")}
+          >
             <i className="fa-solid fa-fire"></i>
             <span>Trending</span>
           </Link>
@@ -78,9 +82,13 @@ export default function Navbar() {
             <i className="fa-solid fa-compass"></i>
             <span>Explore</span>
           </Link>
-          <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
-            <i className="fa-solid fa-heart"></i>
-            <span>Favorites</span>
+          <Link
+            to={"/upcoming"}
+            className={styles.navLink}
+            onClick={() => setSearchQuery("")}
+          >
+            <i className="fa-solid fa-film"></i>
+            <span>Upcoming</span>
           </Link>
           <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
             <i className="fa-solid fa-clapperboard"></i>
