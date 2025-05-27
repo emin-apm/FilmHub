@@ -32,8 +32,10 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
                 <span>IMDB {imdbRating?.imdbRating || "N/A"}</span>
               </div>
               <div className={styles.metaData}>
-                <span>{formattedDate(movie.release_date)}</span>
-                <span>{movie.runtime}m</span>
+                <span>
+                  {formattedDate(movie.release_date || movie.first_air_date)}
+                </span>
+                <span>{movie.runtime || movie.episode_run_time[0]}m</span>
               </div>
             </div>
             <div className={styles.categories}>
@@ -56,9 +58,11 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
       <div className={styles.movieDetails}>
         <h1>{movie.title}</h1>
         <p>{movie.overview}</p>
-        <p>
-          <strong>Budget: </strong> ${movie.budget.toLocaleString()}
-        </p>
+        {movie.budget && (
+          <p>
+            <strong>Budget: </strong> ${movie.budget.toLocaleString()}
+          </p>
+        )}
         <p>
           <strong>Distributed by: </strong>
           {movie.production_companies?.length > 0 ? (
@@ -78,7 +82,7 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
         </p>
       </div>
 
-      <MovieSites title={movie.title} />
+      <MovieSites title={movie.title || movie.original_name} />
     </section>
   );
 }
