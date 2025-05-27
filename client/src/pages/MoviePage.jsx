@@ -6,10 +6,13 @@ import { useMovieTrailer } from "../hooks/useMovieTrailer";
 import { useImdbRating } from "../hooks/useImdbRaiting";
 
 export default function MoviePage() {
-  const { id } = useParams();
+  const { id, media_type } = useParams();
 
-  const { data: movie, isLoading, error } = useMovieDetails(id);
-  const { data: trailerUrl, isLoading: trailerLoading } = useMovieTrailer(id);
+  const { data: movie, isLoading, error } = useMovieDetails(id, media_type);
+  const { data: trailerUrl, isLoading: trailerLoading } = useMovieTrailer(
+    id,
+    media_type
+  );
   const { data: imdbRating, isLoading: ratingLoading } = useImdbRating(
     movie?.imdb_id
   );
