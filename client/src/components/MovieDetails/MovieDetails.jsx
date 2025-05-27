@@ -4,6 +4,7 @@ import MovieSites from "./MovieSites";
 import Spiner from "../Spiner/Spiner";
 import { useState } from "react";
 import { formattedDate } from "../../utils/dateConvert";
+import convertToEmbedUrl from "../../utils/embedUrlCovert";
 
 export default function MovieDetails({
   movie,
@@ -16,11 +17,13 @@ export default function MovieDetails({
 
   return (
     <section className="container">
-      <TrailerModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        trailerUrl={trailerUrl}
-      />
+      {trailerUrl && (
+        <TrailerModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          trailerUrl={convertToEmbedUrl(trailerUrl)}
+        />
+      )}
       <div className={styles.movieBanner}>
         <div className={styles.mBannerImg}>
           <img
