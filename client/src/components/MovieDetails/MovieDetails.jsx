@@ -5,7 +5,12 @@ import Spiner from "../Spiner/Spiner";
 import { useState } from "react";
 import { formattedDate } from "../../utils/dateConvert";
 
-export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
+export default function MovieDetails({
+  movie,
+  trailerUrl,
+  imdbRating,
+  trName,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!movie) return <Spiner />;
@@ -82,7 +87,7 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
         </p>
       </div>
 
-      <MovieSites title={movie.title || movie.original_name} />
+      <MovieSites title={movie.title || movie.original_name} trName={trName} />
     </section>
   );
 }

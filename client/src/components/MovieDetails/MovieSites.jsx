@@ -1,7 +1,7 @@
 import styles from "./MovieDetailsStyles.module.css";
 import { sites } from "../../data/movieSites.json";
 
-export default function MovieSites({ title }) {
+export default function MovieSites({ title, trName }) {
   return (
     <div className={styles.movieSite}>
       <table className={styles.siteBox}>
@@ -40,7 +40,11 @@ export default function MovieSites({ title }) {
               <td>720p</td>
               <td>
                 <a
-                  href={`${x.site}${title}`}
+                  href={
+                    x.language === "TR" && trName
+                      ? `${x.site}${trName}`
+                      : `${x.site}${title}`
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.checkButton}
