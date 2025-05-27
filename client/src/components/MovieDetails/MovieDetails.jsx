@@ -12,7 +12,6 @@ export default function MovieDetails({
   trName,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   if (!movie) return <Spiner />;
 
   return (
@@ -87,7 +86,7 @@ export default function MovieDetails({
         </p>
       </div>
 
-      <MovieSites title={movie.title || movie.original_name} trName={trName} />
+      <MovieSites title={movie.title || movie.name} trName={trName} />
     </section>
   );
 }

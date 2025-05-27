@@ -36,7 +36,7 @@ export default function MoviePage() {
       movie={movie}
       trailerUrl={trailerUrl}
       imdbRating={imdbRating}
-      trName={TRnaming?.title || undefined}
+      trName={TRnaming?.title || TRnaming?.name || undefined}
     />
   );
 }
