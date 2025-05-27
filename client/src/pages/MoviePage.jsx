@@ -8,23 +8,35 @@ import { useImdbRating } from "../hooks/useImdbRaiting";
 export default function MoviePage() {
   const { id, media_type } = useParams();
 
-  const { data: movie, isLoading, error } = useMovieDetails(id, media_type);
-  const { data: trailerUrl, isLoading: trailerLoading } = useMovieTrailer(
-    id,
-    media_type
-  );
-  const { data: imdbRating, isLoading: ratingLoading } = useImdbRating(
-    movie?.imdb_id
-  );
+  const {
+    data: movie,
+    isLoading: movieLoading,
+    error: movieError,
+  } = useMovieDetails(id, media_type);
+  const { data: TRnaming } = useMovieDetails(id, media_type, "tr");
+  const {
+    data: trailerUrl,
+    isLoading: trailerLoading,
+    error: trailerError,
+  } = useMovieTrailer(id, media_type);
+  const {
+    data: imdbRating,
+    isLoading: ratingLoading,
+    error: ratingError,
+  } = useImdbRating(movie?.imdb_id);
 
-  if (isLoading || trailerLoading || ratingLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading movie details</p>;
+  const isLoading = movieLoading || trailerLoading;
+  const error = movieError || trailerError;
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading data</p>;
 
   return (
     <MovieDetails
       movie={movie}
       trailerUrl={trailerUrl}
       imdbRating={imdbRating}
+      trName={TRnaming?.title || undefined}
     />
   );
 }
