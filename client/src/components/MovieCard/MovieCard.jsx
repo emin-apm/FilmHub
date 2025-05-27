@@ -10,7 +10,10 @@ export default function MovieCard({ movie }) {
     .join(", ");
 
   return (
-    <Link className={styles.cardBox} to={`/movie/${movie.id}`}>
+    <Link
+      className={styles.cardBox}
+      to={`/${movie.media_type || "movie"}/${movie.id}`}
+    >
       <div className={styles.cardOverlay}>
         <i className="fa-solid fa-play"></i>
       </div>
@@ -24,14 +27,18 @@ export default function MovieCard({ movie }) {
 
       <div className={styles.mainSliderText}>
         <div className={styles.raitingBox}>
-          {movie.vote_average.toFixed(1)}{" "}
+          {typeof movie.vote_average === "number"
+            ? movie.vote_average.toFixed(1)
+            : "N/A"}{" "}
           <span className={styles.raiting}>imdb</span>
         </div>
 
         <div className={styles.bottonText}>
           <div className={styles.movieName}>
-            <span>{formattedDate(movie.release_date)}</span>
-            <strong>{movie.title}</strong>
+            <span>
+              {formattedDate(movie.release_date || movie.first_air_date)}
+            </span>
+            <strong>{movie.title || movie.name}</strong>
           </div>
           <div className={styles.category}>
             <span>{genreNames || "No genres available"}</span>
