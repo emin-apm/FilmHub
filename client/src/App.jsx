@@ -5,7 +5,7 @@ import MoviePage from "./pages/MoviePage";
 import NotFound404 from "./components/404/notFound404";
 import ExplorePage from "./pages/ExplorePage";
 import TrendingPage from "./pages/TrendingPage";
-import UpcomingPage from "./pages/UpcomingPage";
+import TVShows from "./pages/TVShows";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +18,7 @@ function App() {
         { path: "/:media_type/:id", element: <MoviePage /> },
         { path: "/explore", element: <ExplorePage /> },
         { path: "/trending", element: <TrendingPage /> },
-        { path: "/upcoming", element: <UpcomingPage /> },
+        { path: "/tvshows", element: <TVShows /> },
       ],
     },
   ]);

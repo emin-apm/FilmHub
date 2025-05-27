@@ -83,12 +83,12 @@ export default function Navbar() {
             <span>Explore</span>
           </Link>
           <Link
-            to={"/upcoming"}
+            to={"/tvshows"}
             className={styles.navLink}
             onClick={() => setSearchQuery("")}
           >
             <i className="fa-solid fa-film"></i>
-            <span>Upcoming</span>
+            <span>TV Shows</span>
           </Link>
           <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
             <i className="fa-solid fa-clapperboard"></i>

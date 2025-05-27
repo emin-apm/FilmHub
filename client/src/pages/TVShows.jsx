@@ -8,7 +8,7 @@ import Pagination from "../components/Pagination/Pagination";
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export default function UpcomingPage() {
+export default function TVShows() {
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,7 +45,7 @@ export default function UpcomingPage() {
     queryKey: ["upcomingMovies", page],
     queryFn: async () => {
       //   const res = await axios.get(`${BASE_URL}/movie/upcoming`, {
-      const res = await axios.get(`${BASE_URL}/movie/upcoming`, {
+      const res = await axios.get(`${BASE_URL}/trending/tv/week`, {
         params: { api_key: API_KEY, page },
       });
       return res.data;
