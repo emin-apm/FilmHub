@@ -28,6 +28,14 @@
 
     {
       "id": "5",
+      "language": "TR",
+      "site": "https://dizipal1025.com/?s=",
+      "name": "Dizipal",
+      "nextSite": "Dizipal1026.com"
+    },
+
+    {
+      "id": "6",
       "language": "EN",
       "site": "site link",
       "name": "MovieStream"
