@@ -13,22 +13,23 @@ export default function Catalog({
       <div className={styles.heading}>
         <h2 className={styles.headingTitle}>{title}</h2>
       </div>
-
-      <div className={styles.buttonContainer}>
-        {Object.entries(genres).map(([id, name]) => (
-          <button
-            key={id}
-            onClick={() => handleGenreToggle(id)}
-            className={
-              selectedGenres.includes(id)
-                ? styles.selectedButton
-                : styles.button
-            }
-          >
-            {name}
-          </button>
-        ))}
-      </div>
+      {genres && (
+        <div className={styles.buttonContainer}>
+          {Object.entries(genres).map(([id, name]) => (
+            <button
+              key={id}
+              onClick={() => handleGenreToggle(id)}
+              className={
+                selectedGenres.includes(id)
+                  ? styles.selectedButton
+                  : styles.button
+              }
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className={styles.moviesContainer}>
         {movies.map((movie) => (
