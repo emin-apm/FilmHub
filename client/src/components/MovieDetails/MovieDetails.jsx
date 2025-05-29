@@ -33,7 +33,7 @@ export default function MovieDetails({
         </div>
         <div className={styles.bannerContainer}>
           <div className={styles.titleContainer}>
-            <h1 className={styles.movieTitle}>{movie.title}</h1>
+            <h1 className={styles.movieTitle}>{movie.title || movie.name}</h1>
             <div className={styles.moreAbout}>
               <div className={styles.raiting}>
                 <span>IMDB {imdbRating?.imdbRating || "N/A"}</span>
