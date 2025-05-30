@@ -41,9 +41,11 @@ export default function MovieDetails({
               </div>
               <div className={styles.metaData}>
                 <span>
-                  {formattedDate(movie.release_date || movie.first_air_date)}
+                  {formattedDate(movie?.release_date || movie?.first_air_date)}
                 </span>
-                <span>{movie.runtime || movie.episode_run_time[0]}m</span>
+                {(movie.runtime || movie.episode_run_time?.[0]) && (
+                  <span>{movie.runtime || movie.episode_run_time[0]}m</span>
+                )}
               </div>
             </div>
             <div className={styles.categories}>
