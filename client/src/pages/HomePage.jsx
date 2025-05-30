@@ -27,15 +27,15 @@ export default function HomePage() {
     data: nowPlaying,
     isLoading: nowPlayingIsLoading,
     error: nowPlayingError,
-  } = useGetData("nowPlayingMovies", `${BASE_URL}/movie/now_playing`);
+  } = useGetData("tvShows", `${BASE_URL}/trending/tv/week`);
 
   return (
     <>
       <Hero />
       <PopularMovies title="Popular Movies" movies={popularMovies} />
-      <PopularMovies title="Top rated of all times" movies={topRated} />
       <PopularMovies title="Latest" movies={latestMovies} />
-      <PopularMovies title="Now Playing" movies={nowPlaying} />
+      <PopularMovies title="Top rated of all times" movies={topRated} />
+      <PopularMovies title="TV Shows" movies={nowPlaying} />
     </>
   );
 }
