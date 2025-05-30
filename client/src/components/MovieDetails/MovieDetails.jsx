@@ -5,6 +5,7 @@ import Spiner from "../Spiner/Spiner";
 import { useState } from "react";
 import { formattedDate } from "../../utils/dateConvert";
 import convertToEmbedUrl from "../../utils/embedUrlCovert";
+import { Link } from "react-router-dom";
 
 export default function MovieDetails({
   movie,
@@ -47,9 +48,9 @@ export default function MovieDetails({
             </div>
             <div className={styles.categories}>
               {movie.genres?.map((genre) => (
-                <a key={genre.id} href="#">
+                <Link key={genre.id} to={`/explore?genres=${genre.id}`}>
                   {genre.name}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
