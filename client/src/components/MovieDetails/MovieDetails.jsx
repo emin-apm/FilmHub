@@ -63,7 +63,7 @@ export default function MovieDetails({
         </div>
       </div>
       <div className={styles.movieDetails}>
-        <h1>{movie.title}</h1>
+        <h1>{movie.tagline}</h1>
         <p>{movie.overview}</p>
         {movie.budget && (
           <p>
