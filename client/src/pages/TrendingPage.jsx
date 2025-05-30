@@ -15,8 +15,8 @@ export default function TrendingPage() {
 
   // Sync page with URL
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const pageParam = searchParams.get("page");
+    const urlParam = new URLSearchParams(location.search);
+    const pageParam = urlParam.get("page");
     if (pageParam) {
       const parsedPage = parseInt(pageParam, 10);
       if (!isNaN(parsedPage)) setPage(parsedPage);
@@ -25,13 +25,13 @@ export default function TrendingPage() {
 
   // Update URL on page change
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
+    const urlParam = new URLSearchParams(location.search);
     if (page > 1) {
-      searchParams.set("page", page);
+      urlParam.set("page", page);
     } else {
-      searchParams.delete("page");
+      urlParam.delete("page");
     }
-    navigate(`${location.pathname}?${searchParams.toString()}`, {
+    navigate(`${location.pathname}?${urlParam.toString()}`, {
       replace: true,
     });
   }, [page, location.pathname, navigate]);
