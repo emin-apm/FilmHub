@@ -8,14 +8,21 @@ export default function Catalog({
   selectedGenres,
   handleGenreToggle,
 }) {
+  // Sort genres by name (value)
+  const sortedGenres = genres
+    ? Object.entries(genres).sort(([, a], [, b]) => a.localeCompare(b))
+    : [];
+
   return (
     <section className={`${styles.catalogContainer} container`}>
       <div className={styles.heading}>
         <h2 className={styles.headingTitle}>{title}</h2>
       </div>
-      {genres && (
+
+      {/* Genre buttons */}
+      {sortedGenres.length > 0 && (
         <div className={styles.buttonContainer}>
-          {Object.entries(genres).map(([id, name]) => (
+          {sortedGenres.map(([id, name]) => (
             <button
               key={id}
               onClick={() => handleGenreToggle(id)}
@@ -31,6 +38,7 @@ export default function Catalog({
         </div>
       )}
 
+      {/* Movie cards */}
       <div className={styles.moviesContainer}>
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
