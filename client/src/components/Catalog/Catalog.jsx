@@ -9,6 +9,7 @@ export default function Catalog({
   handleGenreToggle,
 }) {
   // Sort genres by name (value)
+
   const sortedGenres = genres
     ? Object.entries(genres).sort(([, a], [, b]) => a.localeCompare(b))
     : [];
@@ -38,11 +39,23 @@ export default function Catalog({
       )}
 
       {/* Movie cards */}
-      <div className={styles.moviesContainer}>
+      {movies.length > 0 ? (
+        <div className={styles.moviesContainer}>
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+      ) : (
+        <div className={styles.moviesContainer}>
+          <h1 style={{ textAlign: "center" }}>No Movies...</h1>
+        </div>
+      )}
+
+      {/* <div className={styles.moviesContainer}>
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
-      </div>
+      </div> */}
     </section>
   );
 }
