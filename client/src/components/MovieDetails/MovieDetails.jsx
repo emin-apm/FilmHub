@@ -66,6 +66,13 @@ export default function MovieDetails({
         </div>
       </div>
       <div className={styles.movieDetails}>
+        <div className={styles.buttonsContainer}>
+          {/* Watch later Button */}
+          <div className={styles.button}>
+            <i className="fa-solid fa-clapperboard"></i>
+            Watch later
+          </div>
+        </div>
         <h1>{movie.tagline}</h1>
         <p>{movie.overview}</p>
         {movie.budget && (

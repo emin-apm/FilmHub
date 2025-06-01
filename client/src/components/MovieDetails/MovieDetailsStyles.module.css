@@ -160,6 +160,44 @@
   letter-spacing: 1px;
 }
 
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.button {
+  display: inline-block;
+  padding: 8px 50px;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+  transition: ease-in-out 0.2s;
+  cursor: pointer;
+}
+.button i {
+  margin-right: 0.3em;
+  display: inline-block; /* required for transform to work */
+  transition: transform 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: #e6b800; /* slightly lighter/darker on hover */
+  color: #000;
+  transform: scale(1.07);
+}
+.button:hover i {
+  transform: rotateZ(30deg);
+}
+
 /* MovieSites Table Styles */
 .movieSite {
   margin: 50px auto;
@@ -258,6 +296,23 @@
     padding: 0 1em;
   }
 
+  .movieDetails {
+    margin: 30px auto 20px auto;
+  }
+  .buttonsContainer {
+    flex-direction: column;
+  }
+
+  .button {
+    padding: 6px 40px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    transition: ease-in-out 0.2s;
+    cursor: pointer;
+  }
+
   .titleContainer {
     padding-left: 0;
     max-width: 100%;
@@ -279,10 +334,15 @@
     transform: none;
     bottom: 10%;
     right: 5%;
+    z-index: 9999;
   }
 
   .playButton i {
     font-size: 36px;
+  }
+
+  .movieDetails {
+    text-align: center;
   }
 
   .movieDetails h1 {
