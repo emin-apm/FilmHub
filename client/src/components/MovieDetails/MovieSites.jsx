@@ -49,7 +49,7 @@ export default function MovieSites({ title, trName }) {
                   rel="noopener noreferrer"
                   className={styles.checkButton}
                 >
-                  Watch now!
+                  Watch now !
                 </a>
               </td>
             </tr>
