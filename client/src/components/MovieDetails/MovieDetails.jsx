@@ -2,10 +2,10 @@ import styles from "./MovieDetailsStyles.module.css";
 import TrailerModal from "../TrailerModal/TrailerModal";
 import MovieSites from "./MovieSites";
 import Spiner from "../Spiner/Spiner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formattedDate } from "../../utils/dateConvert";
 import convertToEmbedUrl from "../../utils/embedUrlCovert";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function MovieDetails({
   movie,
@@ -14,6 +14,38 @@ export default function MovieDetails({
   trName,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const { media_type } = useParams();
+
+  useEffect(() => {
+    if (!movie) return;
+    const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+    const exists = storedMovies.some((x) => x.id === movie.id);
+    setIsSaved(exists);
+  }, [movie]);
+
+  const addToWatchLater = (movie) => {
+    const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+    const exist = storedMovies.some((x) => x.id === movie.id);
+
+    if (!exist) {
+      const movieWithType = { ...movie, media_type };
+      storedMovies.push(movieWithType);
+
+      localStorage.setItem("movies", JSON.stringify(storedMovies));
+      setIsSaved(true);
+      console.log("Movie added");
+    }
+  };
+
+  const removeMovieFromLocalStorage = (movieId) => {
+    const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+    const updatedMovies = storedMovies.filter((movie) => movie.id !== movieId);
+    localStorage.setItem("movies", JSON.stringify(updatedMovies));
+    setIsSaved(false);
+    console.log("Movie removed (if it existed)");
+  };
+
   if (!movie) return <Spiner />;
 
   return (
@@ -68,9 +100,28 @@ export default function MovieDetails({
       <div className={styles.movieDetails}>
         <div className={styles.buttonsContainer}>
           {/* Watch later Button */}
-          <div className={styles.button}>
+          {/* <div className={styles.button} onClick={() => addToWatchLater(movie)}>
             <i className="fa-solid fa-clapperboard"></i>
             Watch later
+          </div> */}
+          <div className={styles.buttonsContainer}>
+            {isSaved ? (
+              <div
+                className={styles.button}
+                onClick={() => removeMovieFromLocalStorage(movie.id)}
+              >
+                <i className="fa-solid fa-trash"></i>
+                Remove
+              </div>
+            ) : (
+              <div
+                className={styles.button}
+                onClick={() => addToWatchLater(movie)}
+              >
+                <i className="fa-solid fa-clapperboard"></i>
+                Watch Later
+              </div>
+            )}
           </div>
         </div>
         <h1>{movie.tagline}</h1>
