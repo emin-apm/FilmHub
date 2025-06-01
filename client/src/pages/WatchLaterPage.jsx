@@ -12,10 +12,12 @@ let type = {
 export default function WatchLaterPage() {
   const [selectedGenres, setSelectedGenres] = useState([]);
 
-  const { data, isLoading, error } = useGetData(
-    "upcominMovies",
-    `${BASE_URL}/movie/upcoming`
-  );
+  // const { data, isLoading, error } = useGetData(
+  //   "upcominMovies",
+  //   `${BASE_URL}/movie/upcoming`
+  // );
+
+  const data = JSON.parse(localStorage.getItem("movies"));
 
   const handleGenreToggle = (genreId) => {
     setSelectedGenres((prev) =>
@@ -28,8 +30,8 @@ export default function WatchLaterPage() {
 
   return (
     <>
-      {isLoading && <p>Loading movies...</p>}
-      {error && <p style={{ color: "red" }}>Error loading movies.</p>}
+      {/* {isLoading && <p>Loading movies...</p>}
+      {error && <p style={{ color: "red" }}>Error loading movies.</p>} */}
       {data && (
         <Catalog
           title="Watch Later"
