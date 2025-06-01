@@ -57,6 +57,8 @@ export default function Navbar() {
         </a>
 
         {/* Navbar Links */}
+        {/* TO DO: create ROUTES and map them  */}
+
         <div className={styles.navbar}>
           <Link
             to={"/"}
@@ -90,7 +92,11 @@ export default function Navbar() {
             <i className="fa-solid fa-film"></i>
             <span>TV Shows</span>
           </Link>
-          <Link className={styles.navLink} onClick={() => setSearchQuery("")}>
+          <Link
+            to={"/watch-later"}
+            className={styles.navLink}
+            onClick={() => setSearchQuery("")}
+          >
             <i className="fa-solid fa-clapperboard"></i>
             <span>Watch Later</span>
           </Link>

@@ -21,7 +21,6 @@ export default function ExplorePage() {
     const genresParam = searchParams.get("genres");
     const searchTerm = searchParams.get("search");
     const pageParam = searchParams.get("page");
-
     if (genresParam) {
       const genresFromUrl = genresParam.split(",");
       setSelectedGenres(genresFromUrl);

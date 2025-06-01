@@ -6,8 +6,13 @@ import NotFound404 from "./components/404/notFound404";
 import ExplorePage from "./pages/ExplorePage";
 import TrendingPage from "./pages/TrendingPage";
 import TVShowsPage from "./pages/TVShowsPage";
+import WatchLaterPage from "./pages/WatchLaterPage";
 
 function App() {
+  {
+    /* TO DO: create ROUTES   */
+  }
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -19,6 +24,7 @@ function App() {
         { path: "/explore", element: <ExplorePage /> },
         { path: "/trending", element: <TrendingPage /> },
         { path: "/tvshows", element: <TVShowsPage /> },
+        { path: "/watch-later", element: <WatchLaterPage /> },
       ],
     },
   ]);
