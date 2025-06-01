@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Catalog from "../components/Catalog/Catalog";
 import useGetData from "../hooks/useGetData";
 
@@ -11,13 +11,18 @@ let type = {
 
 export default function WatchLaterPage() {
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-  // const { data, isLoading, error } = useGetData(
-  //   "upcominMovies",
-  //   `${BASE_URL}/movie/upcoming`
-  // );
-
-  const data = JSON.parse(localStorage.getItem("movies"));
+  // Load movies from localStorage every time this component mounts
+  useEffect(() => {
+    try {
+      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+      setMovies(storedMovies);
+    } catch {
+      setMovies([]);
+      console.log("error");
+    }
+  }, []); // empty deps = run once on mount
 
   const handleGenreToggle = (genreId) => {
     setSelectedGenres((prev) =>
@@ -30,17 +35,13 @@ export default function WatchLaterPage() {
 
   return (
     <>
-      {/* {isLoading && <p>Loading movies...</p>}
-      {error && <p style={{ color: "red" }}>Error loading movies.</p>} */}
-      {data && (
-        <Catalog
-          title="Watch Later"
-          movies={data}
-          selectedGenres={selectedGenres}
-          handleGenreToggle={handleGenreToggle}
-          genres={type}
-        />
-      )}
+      <Catalog
+        title="Watch Later"
+        movies={movies}
+        selectedGenres={selectedGenres}
+        handleGenreToggle={handleGenreToggle}
+        genres={type}
+      />
     </>
   );
 }
