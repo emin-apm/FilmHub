@@ -4,10 +4,21 @@ import { formattedDate } from "../../utils/dateConvert";
 import genres from "../../data/genre.json";
 
 export default function MovieCard({ movie }) {
-  const genreNames = movie.genre_ids
-    ?.map((id) => genres[id])
-    .filter(Boolean)
-    .join(", ");
+  let genreNames;
+
+  if (movie.genres) {
+    genreNames = movie.genres
+      .map((genre) => genre.name)
+      .filter(Boolean)
+      .join(", ");
+  } else if (movie.genre_ids) {
+    genreNames = movie.genre_ids
+      .map((id) => genres[id])
+      .filter(Boolean)
+      .join(", ");
+  } else {
+    genreNames = "No genres available";
+  }
 
   return (
     <Link
