@@ -97,13 +97,10 @@ export default function MovieDetails({
           <i className="fa-solid fa-circle-play"></i>
         </div>
       </div>
+      <MovieSites title={movie.title || movie.name} trName={trName} />
+
       <div className={styles.movieDetails}>
         <div className={styles.buttonsContainer}>
-          {/* Watch later Button */}
-          {/* <div className={styles.button} onClick={() => addToWatchLater(movie)}>
-            <i className="fa-solid fa-clapperboard"></i>
-            Watch later
-          </div> */}
           <div className={styles.buttonsContainer}>
             {isSaved ? (
               <div
@@ -149,8 +146,6 @@ export default function MovieDetails({
           {imdbRating?.imdbRating || "N/A"} ({imdbRating?.imdbVotes || "N/A"})
         </p>
       </div>
-
-      <MovieSites title={movie.title || movie.name} trName={trName} />
     </section>
   );
 }
