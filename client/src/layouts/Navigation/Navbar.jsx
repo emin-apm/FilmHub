@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./NavbarStyles.module.css";
 import porifilImg from "../../assets/profilImg.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const searchInputRef = useRef();
 
   const handleClick = () => {
     setIsActive(!isActive);
@@ -19,6 +20,7 @@ export default function Navbar() {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     if (searchQuery) {
+      searchInputRef.current?.blur();
       navigate(`/explore?search=${encodeURIComponent(searchQuery)}`);
     }
   };
@@ -41,6 +43,7 @@ export default function Navbar() {
 
         <form className={styles.searchBox} onSubmit={handleSearchSubmit}>
           <input
+            ref={searchInputRef}
             type="search"
             placeholder="Search movie"
             value={searchQuery}
