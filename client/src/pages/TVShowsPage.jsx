@@ -36,11 +36,6 @@ export default function TVShows() {
     });
   }, [page, location.pathname, navigate]);
 
-  // Scroll to top on page change
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["upcomingMovies", page],
     queryFn: async () => {
