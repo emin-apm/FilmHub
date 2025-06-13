@@ -60,7 +60,7 @@ export default function MovieDetails({
       <div className={styles.movieBanner}>
         <div className={styles.mBannerImg}>
           <img
-            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
             alt="Movie Banner"
           />
         </div>
