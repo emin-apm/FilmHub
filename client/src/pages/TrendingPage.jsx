@@ -4,6 +4,7 @@ import axios from "axios";
 import Catalog from "../components/Catalog/Catalog";
 import { useNavigate, useLocation } from "react-router-dom";
 import Pagination from "../components/Pagination/Pagination";
+import Spiner from "../components/Spiner/Spiner";
 
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -36,15 +37,10 @@ export default function TrendingPage() {
     });
   }, [page, location.pathname, navigate]);
 
-  // Scroll to top on page change
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["trendingMovies", page],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}	/trending/movie/week`, {
+      const res = await axios.get(`${BASE_URL}/trending/movie/week`, {
         params: { api_key: API_KEY, page },
       });
       return res.data;
@@ -54,18 +50,21 @@ export default function TrendingPage() {
 
   return (
     <>
-      {isLoading && <p>Loading movies...</p>}
-      {error && <p style={{ color: "red" }}>Error loading movies.</p>}
-      {data && (
-        <>
-          <Catalog title="Trending Movies" movies={data.results} />
+      <>
+        <Catalog
+          title="Trending Movies"
+          movies={data?.results}
+          isLoading={isLoading}
+          error={error}
+        />
+        {data?.total_pages && (
           <Pagination
             currentPage={page}
             totalPages={Math.min(data.total_pages, 500)}
             onPageChange={setPage}
           />
-        </>
-      )}
+        )}
+      </>
     </>
   );
 }
