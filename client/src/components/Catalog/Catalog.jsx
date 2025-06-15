@@ -1,4 +1,5 @@
 import MovieCard from "../MovieCard/MovieCard";
+import Spiner from "../Spiner/Spiner";
 import styles from "./CatalogStyles.module.css";
 
 export default function Catalog({
@@ -7,6 +8,8 @@ export default function Catalog({
   genres,
   selectedGenres,
   handleGenreToggle,
+  isLoading,
+  error,
 }) {
   // Sort genres by name (value)
 
@@ -38,8 +41,13 @@ export default function Catalog({
         </div>
       )}
 
-      {/* Movie cards */}
-      {movies.length > 0 ? (
+      {error ? (
+        <div className={"error"}>
+          <p>Error loading movies.</p>
+        </div>
+      ) : isLoading ? (
+        <Spiner />
+      ) : movies && movies.length > 0 ? (
         <div className={styles.moviesContainer}>
           {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
@@ -50,12 +58,6 @@ export default function Catalog({
           <h1 style={{ textAlign: "center" }}>No Movies...</h1>
         </div>
       )}
-
-      {/* <div className={styles.moviesContainer}>
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </div> */}
     </section>
   );
 }
