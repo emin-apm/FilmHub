@@ -5,8 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import Spiner from "../Spiner/Spiner";
 
-export default function PopularMovies({ title, movies }) {
+export default function PopularMovies({ title, movies, isLoading }) {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
@@ -29,7 +30,7 @@ export default function PopularMovies({ title, movies }) {
           <i className="fa-solid fa-chevron-right" ref={nextRef}></i>
         </div>
       </div>
-
+      {isLoading && <Spiner />}
       <Swiper
         ref={swiperRef}
         modules={[Navigation, Autoplay]}
