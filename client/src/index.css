@@ -70,6 +70,17 @@ html::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 
+.error {
+  display: felx;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2em;
+  color: red;
+  text-align: center;
+  font-size: 26px;
+}
+
 @media (max-width: 480px) {
   .container {
     max-width: 90%;
