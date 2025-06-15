@@ -50,21 +50,19 @@ export default function TrendingPage() {
 
   return (
     <>
-      <>
-        <Catalog
-          title="Trending Movies"
-          movies={data?.results}
-          isLoading={isLoading}
-          error={error}
+      <Catalog
+        title="Trending Movies"
+        movies={data?.results}
+        isLoading={isLoading}
+        error={error}
+      />
+      {data?.total_pages && (
+        <Pagination
+          currentPage={page}
+          totalPages={Math.min(data.total_pages, 500)}
+          onPageChange={setPage}
         />
-        {data?.total_pages && (
-          <Pagination
-            currentPage={page}
-            totalPages={Math.min(data.total_pages, 500)}
-            onPageChange={setPage}
-          />
-        )}
-      </>
+      )}
     </>
   );
 }

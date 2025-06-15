@@ -149,24 +149,24 @@ export default function ExplorePage() {
         />
       </div>
 
-      {isLoading && <p>Loading movies...</p>}
-      {error && <p style={{ color: "red" }}>Error loading movies.</p>}
-      {data && (
-        <>
-          <Catalog
-            title="Explore Movies & TV Shows"
-            movies={data.results}
-            genres={genres}
-            selectedGenres={selectedGenres}
-            handleGenreToggle={handleGenreToggle}
-          />
+      <>
+        <Catalog
+          title="Explore Movies & TV Shows"
+          movies={data?.results}
+          genres={genres}
+          selectedGenres={selectedGenres}
+          handleGenreToggle={handleGenreToggle}
+          isLoading={isLoading}
+          error={error}
+        />
+        {data?.total_pages && (
           <Pagination
             currentPage={page}
-            totalPages={data.total_pages}
+            totalPages={Math.min(data.total_pages, 500)}
             onPageChange={setPage}
           />
-        </>
-      )}
+        )}
+      </>
     </>
   );
 }

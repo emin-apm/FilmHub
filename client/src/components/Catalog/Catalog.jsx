@@ -43,7 +43,7 @@ export default function Catalog({
 
       {error ? (
         <div className={"error"}>
-          <p>Error loading movies.</p>
+          <p>Error loading movies...</p>
         </div>
       ) : isLoading ? (
         <Spiner />

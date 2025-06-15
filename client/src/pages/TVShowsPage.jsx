@@ -50,18 +50,22 @@ export default function TVShows() {
 
   return (
     <>
-      {isLoading && <p>Loading movies...</p>}
-      {error && <p style={{ color: "red" }}>Error loading movies.</p>}
-      {data && (
-        <>
-          <Catalog title="Upcoming Movies" movies={data.results} />
+      <>
+        <Catalog
+          title="Upcoming Movies"
+          movies={data?.results}
+          isLoading={isLoading}
+          error={error}
+        />
+
+        {data?.total_pages && (
           <Pagination
             currentPage={page}
             totalPages={Math.min(data.total_pages, 500)}
             onPageChange={setPage}
           />
-        </>
-      )}
+        )}
+      </>
     </>
   );
 }
