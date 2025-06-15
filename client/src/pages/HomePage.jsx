@@ -32,10 +32,26 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <PopularMovies title="Popular Movies" movies={popularMovies} />
-      <PopularMovies title="Latest" movies={latestMovies} />
-      <PopularMovies title="Top rated of all times" movies={topRated} />
-      <PopularMovies title="TV Shows" movies={nowPlaying} />
+      <PopularMovies
+        title="Popular Movies"
+        movies={popularMovies}
+        isLoading={popularIsLoading}
+      />
+      <PopularMovies
+        title="Latest"
+        movies={latestMovies}
+        isLoading={latestIsLoading}
+      />
+      <PopularMovies
+        title="Top rated of all times"
+        movies={topRated}
+        isLoading={topRatedIsLoading}
+      />
+      <PopularMovies
+        title="TV Shows"
+        movies={nowPlaying}
+        isLoading={nowPlayingIsLoading}
+      />
     </>
   );
 }
