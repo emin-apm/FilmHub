@@ -1,5 +1,9 @@
 import styles from "./SpinerStyles.module.css";
 
 export default function Spiner() {
-  return <span className={styles.loader}></span>;
+  return (
+    <div className={styles.spinerContainer}>
+      <span className={styles.loader}></span>
+    </div>
+  );
 }
