@@ -1,7 +1,6 @@
 import styles from "./MovieDetailsStyles.module.css";
 import TrailerModal from "../TrailerModal/TrailerModal";
 import MovieSites from "./MovieSites";
-import Spiner from "../Spiner/Spiner";
 import { useEffect, useState } from "react";
 import { formattedDate } from "../../utils/dateConvert";
 import convertToEmbedUrl from "../../utils/embedUrlCovert";
@@ -46,7 +45,7 @@ export default function MovieDetails({
     console.log("Movie removed (if it existed)");
   };
 
-  if (!movie) return <Spiner />;
+  if (!movie) return null;
 
   return (
     <section className="container">
@@ -57,6 +56,7 @@ export default function MovieDetails({
           trailerUrl={convertToEmbedUrl(trailerUrl)}
         />
       )}
+
       <div className={styles.movieBanner}>
         <div className={styles.mBannerImg}>
           <img
