@@ -2,7 +2,6 @@ import styles from "./TrailerModalStyles.module.css";
 
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
   if (!isOpen) return null;
-  console.log(trailerUrl);
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
