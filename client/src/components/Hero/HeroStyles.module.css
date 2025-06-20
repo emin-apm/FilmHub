@@ -40,14 +40,12 @@
 }
 
 .watchButton {
-  display: flex;
-  align-self: center;
-  column-gap: 0.8rem;
   color: var(--text-color);
 }
 
 .watchButton i {
   color: var(--main-color);
+  margin-right: 0.3em;
 }
 
 @media (max-width: 1200px) {
