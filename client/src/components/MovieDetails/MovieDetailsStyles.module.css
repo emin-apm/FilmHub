@@ -1,7 +1,7 @@
 .movieBanner {
   position: relative;
   z-index: 50;
-  min-height: 650px;
+  min-height: 400px;
 }
 
 .movieBanner::before {
@@ -268,6 +268,10 @@
 
 /* Responsive */
 @media (min-width: 1450px) {
+  .movieBanner {
+    min-height: 400px;
+  }
+
   .titleContainer h1 {
     font-size: 4rem;
   }
@@ -285,13 +289,9 @@
   }
 }
 
-@media (max-width: 1400px) {
-  /* You can add styles here if needed */
-}
-
 @media (max-width: 800px) {
   .movieBanner {
-    min-height: 150px;
+    min-height: 200px;
   }
 
   .bannerContainer {

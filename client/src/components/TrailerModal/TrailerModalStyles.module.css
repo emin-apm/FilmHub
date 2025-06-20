@@ -33,19 +33,7 @@
 
 .videoWrapper iframe {
   width: 100%;
-  height: 660px;
   border: none;
   border-radius: 8px;
-}
-
-@media (min-width: 1441px) {
-  .videoWrapper iframe {
-    height: 860px;
-  }
-}
-
-@media (max-width: 768px) {
-  .videoWrapper iframe {
-    height: 450px;
-  }
+  height: 70vh;
 }
