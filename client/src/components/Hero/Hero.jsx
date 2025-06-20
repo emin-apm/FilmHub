@@ -1,5 +1,6 @@
 import styles from "./HeroStyles.module.css";
 import hero from "../../assets/hero2.jpg";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -13,10 +14,10 @@ export default function Hero() {
           Everything you're looking for in one place! Discover, stream, and
           enjoy without limits.
         </p>
-        <a href="" className={styles.watchButton}>
+        <Link to={"/explore"} className={styles.watchButton}>
           <i className="fa-solid fa-circle-play"></i>
           <span>Watch movie</span>
-        </a>
+        </Link>
       </div>
     </section>
   );
