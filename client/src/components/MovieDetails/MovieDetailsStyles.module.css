@@ -290,6 +290,10 @@
 }
 
 @media (max-width: 800px) {
+  .movieBanner {
+    min-height: 150px;
+  }
+
   .bannerContainer {
     flex-direction: column;
     align-items: flex-start;
