@@ -1,6 +1,7 @@
 .movieBanner {
   position: relative;
   z-index: 50;
+  min-height: 650px;
 }
 
 .movieBanner::before {
