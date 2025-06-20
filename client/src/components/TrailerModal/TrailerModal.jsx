@@ -1,7 +1,22 @@
+import { useEffect } from "react";
 import styles from "./TrailerModalStyles.module.css";
 
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
   if (!isOpen) return null;
+
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
