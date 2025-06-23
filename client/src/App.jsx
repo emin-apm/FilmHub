@@ -7,6 +7,7 @@ import ExplorePage from "./pages/ExplorePage";
 import TrendingPage from "./pages/TrendingPage";
 import TVShowsPage from "./pages/TVShowsPage";
 import WatchLaterPage from "./pages/WatchLaterPage";
+import ProfilPage from "./pages/ProfilPage";
 
 function App() {
   {
@@ -25,6 +26,7 @@ function App() {
         { path: "/trending", element: <TrendingPage /> },
         { path: "/tvshows", element: <TVShowsPage /> },
         { path: "/watch-later", element: <WatchLaterPage /> },
+        { path: "/profile", element: <ProfilPage /> },
       ],
     },
   ]);
