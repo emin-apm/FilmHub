@@ -187,12 +187,12 @@
 }
 .button i {
   margin-right: 0.3em;
-  display: inline-block; /* required for transform to work */
+  display: inline-block;
   transition: transform 0.3s ease-in-out;
 }
 
 .button:hover {
-  background-color: #e6b800; /* slightly lighter/darker on hover */
+  background-color: #e6b800;
   color: #000;
   transform: scale(1.07);
 }
@@ -261,7 +261,7 @@
 }
 
 .checkButton:hover {
-  background-color: #e6b800; /* slightly lighter/darker on hover */
+  background-color: #e6b800;
   color: #000;
   scale: 1.07;
 }
@@ -356,7 +356,6 @@
     text-align: center;
   }
 
-  /* Remove grid-template-columns from .siteBox since this is a table */
   .movieSite {
     max-width: 100%;
     overflow-x: auto;
@@ -372,12 +371,12 @@
 @media (max-width: 320px) {
   .siteBox th,
   .siteBox td {
-    padding: 4px 7.2px; /* reduce padding */
-    font-size: 0.6rem; /* smaller font */
+    padding: 4px 7.2px;
+    font-size: 0.6rem;
   }
 
   .checkButton {
-    padding: 4px 8px; /* smaller button padding */
-    font-size: 0.7rem; /* smaller font on button */
+    padding: 4px 8px;
+    font-size: 0.7rem;
   }
 }
