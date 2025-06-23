@@ -55,9 +55,9 @@ export default function Navbar() {
         </form>
 
         {/* User profile icon */}
-        <a href="" className={styles.user}>
+        <Link to={"/profile"} className={styles.user}>
           <img src={porifilImg} alt="Profile Img" />
-        </a>
+        </Link>
 
         {/* Navbar Links */}
         {/* TO DO: create ROUTES and map them  */}
