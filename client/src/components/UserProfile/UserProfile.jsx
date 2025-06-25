@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./UserProfileStyles.module.css";
 import porifilImg from "../../assets/profilImg.png";
+import Login from "../Login/Login";
 
 export default function UserProfile() {
   const [imagePreview, setImagePreview] = useState(porifilImg);
@@ -38,9 +39,12 @@ export default function UserProfile() {
           <h1>Eminkataa</h1>
         </div>
 
-        <div className={styles.movieInfo}>
-          <p>Watchlater list: 3 movies</p>
+        <div className={styles.infoContainer}>
+          <div className={styles.infoBox}>
+            <p>Watchlater list: 3 movies</p>
+          </div>
         </div>
+        <Login />
       </div>
     </section>
   );

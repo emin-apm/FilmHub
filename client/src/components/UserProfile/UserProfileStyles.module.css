@@ -4,7 +4,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 2em;
-  height: 85vh;
+  min-height: 85vh;
 }
 
 .mediaContainer {
@@ -20,8 +20,8 @@
 }
 
 .userImg img {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
@@ -38,12 +38,22 @@
   gap: 1em;
 }
 
-.movieInfo {
+.infoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.infoBox {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 1em;
+  padding: 2em;
+  border-radius: 6px;
+  background: wheat;
 }
 
 .button {
