@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./UserProfileStyles.module.css";
-import porifilImg from "../../assets/profilImg.png";
 import Login from "../Login/Login";
 
-export default function UserProfile() {
-  const [imagePreview, setImagePreview] = useState(porifilImg);
+export default function UserProfile({ userData, setUserData }) {
+  const [imagePreview, setImagePreview] = useState(userData?.picture);
+
+  useEffect(() => {
+    setImagePreview(userData?.picture);
+  }, [userData?.picture]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImagePreview(imageUrl);
+      setUserData((prev) => ({
+        ...prev,
+        picture: imageUrl,
+      }));
     }
   };
 
