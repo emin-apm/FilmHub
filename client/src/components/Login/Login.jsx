@@ -39,7 +39,7 @@ export default function Login() {
           </div>
 
           <button type="submit" className={styles.btn}>
-            <i class="fa-brands fa-google"></i> Sign in with Google
+            <i className="fa-brands fa-google"></i> Sign in with Google
           </button>
           <div className={styles.loginRegister}>
             <p>
