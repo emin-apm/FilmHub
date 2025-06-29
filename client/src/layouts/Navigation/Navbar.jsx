@@ -1,13 +1,14 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import styles from "./NavbarStyles.module.css";
-import porifilImg from "../../assets/profilImg.png";
 import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const searchInputRef = useRef();
+  const { userData } = useContext(UserContext);
 
   const handleClick = () => {
     setIsActive(!isActive);
@@ -56,7 +57,7 @@ export default function Navbar() {
 
         {/* User profile icon */}
         <Link to={"/profile"} className={styles.user}>
-          <img src={porifilImg} alt="Profile Img" />
+          <img src={userData?.picture} alt="Profile Img" />
         </Link>
 
         {/* Navbar Links */}
