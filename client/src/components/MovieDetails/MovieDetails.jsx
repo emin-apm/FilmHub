@@ -73,10 +73,14 @@ export default function MovieDetails({
               </div>
               <div className={styles.metaData}>
                 <span>
+                  <i className="fa-regular fa-calendar"></i>
                   {formattedDate(movie?.release_date || movie?.first_air_date)}
                 </span>
                 {(movie.runtime || movie.episode_run_time?.[0]) && (
-                  <span>{movie.runtime || movie.episode_run_time[0]}m</span>
+                  <span>
+                    <i className="fa-regular fa-clock"></i>
+                    {movie.runtime || movie.episode_run_time[0]}m
+                  </span>
                 )}
               </div>
             </div>
