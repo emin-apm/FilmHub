@@ -37,8 +37,8 @@
     {
       "id": "6",
       "language": "EN",
-      "site": "site link",
-      "name": "MovieStream"
+      "site": "https://flixer.su/search?q=",
+      "name": "Flixer"
     }
   ]
 }
