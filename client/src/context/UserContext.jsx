@@ -6,6 +6,7 @@ let UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
     picture: porifilImg,
+    // email: "emin@gmail.com",
     email: null,
     username: null,
   });
