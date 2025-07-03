@@ -17,6 +17,16 @@ export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
     };
   }, [onClose]);
 
+  useEffect(() => {
+    // Block background scroll
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      // Restore scroll when modal unmounts
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
