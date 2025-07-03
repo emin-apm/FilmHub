@@ -1,11 +1,28 @@
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./LoginStyles.module.css";
+import UserContext from "../../context/UserContext";
 
 export default function Login({ onClose }) {
+  const { setUserData } = useContext(UserContext);
+
+  const [email, setEmail] = useState();
+
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setUserData((prev) => ({
+      ...prev,
+      email: email,
+      username: email.split("@")[0],
+    }));
+
+    onClose();
   };
 
   useEffect(() => {
@@ -39,12 +56,18 @@ export default function Login({ onClose }) {
         </span>
         <div className={`${styles.formBox} ${styles.login}`}>
           <h2>Login</h2>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div className={styles.inputBox}>
               <span className={styles.icon}>
                 <i className="fa-solid fa-envelope"></i>
               </span>
-              <input type="email" placeholder=" " required />
+              <input
+                type="email"
+                placeholder=" "
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <label htmlFor="">Email</label>
             </div>
             <div className={styles.inputBox}>
