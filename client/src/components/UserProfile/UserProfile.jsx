@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./UserProfileStyles.module.css";
-import Login from "../Login/Login";
 
 export default function UserProfile({ userData, setUserData }) {
   const [imagePreview, setImagePreview] = useState(userData?.picture);
@@ -51,7 +50,6 @@ export default function UserProfile({ userData, setUserData }) {
             <p>Watchlater list: 3 movies</p>
           </div>
         </div>
-        <Login />
       </div>
     </section>
   );
