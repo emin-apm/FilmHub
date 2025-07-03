@@ -2,6 +2,7 @@ import { useContext, useRef, useState } from "react";
 import styles from "./NavbarStyles.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext";
+import Login from "../../components/Login/Login";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
@@ -9,6 +10,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const searchInputRef = useRef();
   const { userData } = useContext(UserContext);
+  const [loginModal, setLoginModal] = useState(false);
 
   const handleClick = () => {
     setIsActive(!isActive);
@@ -55,10 +57,23 @@ export default function Navbar() {
           </button>
         </form>
 
-        {/* User profile icon */}
-        <Link to={"/profile"} className={styles.user}>
+        {/* User profile*/}
+        <div
+          className={styles.user}
+          onClick={() => {
+            if (userData.email) {
+              console.log(userData.email);
+              navigate("/profile");
+            } else {
+              console.log("no user");
+              setLoginModal(true);
+            }
+          }}
+        >
           <img src={userData?.picture} alt="Profile Img" />
-        </Link>
+        </div>
+
+        {loginModal && <Login onClose={() => setLoginModal(false)} />}
 
         {/* Navbar Links */}
         {/* TO DO: create ROUTES and map them  */}
