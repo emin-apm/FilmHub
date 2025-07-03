@@ -84,6 +84,7 @@
 
 .user {
   display: flex;
+  cursor: pointer;
 }
 
 .user img {
