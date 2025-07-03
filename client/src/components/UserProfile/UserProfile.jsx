@@ -41,8 +41,8 @@ export default function UserProfile({ userData, setUserData }) {
         </div>
 
         <div className={styles.userInfo}>
-          <h1>eminapturaim@gmail.com</h1>
-          <h1>Eminkataa</h1>
+          <h1>{userData.email}</h1>
+          <h1>{userData.username}</h1>
         </div>
 
         <div className={styles.infoContainer}>
