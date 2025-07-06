@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styles from "./TrailerModalStyles.module.css";
+import { lockScroll, unlockScroll } from "../../utils/scrollLock,js";
 
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
   if (!isOpen) return null;
@@ -18,13 +19,8 @@ export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
   }, [onClose]);
 
   useEffect(() => {
-    // Block background scroll
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      // Restore scroll when modal unmounts
-      document.body.style.overflow = "";
-    };
+    lockScroll();
+    return () => unlockScroll();
   }, []);
 
   return (
