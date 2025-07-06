@@ -49,7 +49,7 @@ export default function MovieDetails({
 
   return (
     <section className="container">
-      {trailerUrl && (
+      {trailerUrl && isModalOpen && (
         <TrailerModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
