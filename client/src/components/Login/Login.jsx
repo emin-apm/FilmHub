@@ -1,11 +1,48 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./LoginStyles.module.css";
 import UserContext from "../../context/UserContext";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { lockScroll, unlockScroll } from "../../utils/scrollLock,js";
 
 export default function Login({ onClose }) {
   const { setUserData } = useContext(UserContext);
 
   const [email, setEmail] = useState();
+
+  function getBiggerGoogleProfilePic(url, size = 250) {
+    return url.replace(/s\d+-c$/, `s${size}-c`);
+  }
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log("Google Token Response:", tokenResponse);
+      try {
+        const res = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${tokenResponse.access_token}`,
+            },
+          }
+        );
+        const userInfo = res.data;
+        const highResPic = getBiggerGoogleProfilePic(userInfo.picture);
+        console.log(highResPic);
+        setUserData({
+          email: userInfo.email,
+          username: userInfo.name,
+          picture: highResPic,
+        });
+
+        onClose();
+      } catch (error) {
+        console.error("Failed to fetch Google user info", error);
+      }
+    },
+    onError: (errorResponse) => {
+      console.error("Login Failed:", errorResponse);
+    },
+  });
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -26,26 +63,8 @@ export default function Login({ onClose }) {
   };
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onClose]);
-
-  useEffect(() => {
-    // Block background scroll
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      // Restore scroll when modal unmounts
-      document.body.style.overflow = "";
-    };
+    lockScroll();
+    return () => unlockScroll();
   }, []);
 
   return (
@@ -92,7 +111,11 @@ export default function Login({ onClose }) {
               <span className={styles.dividerText}>or</span>
             </div>
 
-            <button type="submit" className={styles.btn}>
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={() => login()}
+            >
               <i className="fa-brands fa-google"></i> Sign in with Google
             </button>
             <div className={styles.loginRegister}>
