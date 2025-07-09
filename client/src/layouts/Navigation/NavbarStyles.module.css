@@ -153,4 +153,13 @@
     font-size: 1rem;
     font-weight: 600;
   }
+  .searchBox {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 360px) {
+  .searchBox {
+    max-width: 155px;
+  }
 }

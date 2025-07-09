@@ -88,7 +88,7 @@ html::-webkit-scrollbar-thumb {
   height: 90vh;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .container {
     max-width: 90%;
   }
