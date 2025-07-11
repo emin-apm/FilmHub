@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styles from "./TrailerModalStyles.module.css";
-import { lockScroll, unlockScroll } from "../../utils/scrollLock,js";
+import { lockScroll, unlockScroll } from "../../utils/scrollLock.js";
 
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
   if (!isOpen) return null;
