@@ -138,11 +138,12 @@ h2 {
   margin: 25px 0 10px;
 }
 
-.loginRegister a {
+.registerLink {
   font-weight: 500;
   margin-left: 4px;
+  color: var(--main-color);
 }
-.loginRegister a:hover {
+.registerLink:hover {
   text-decoration: underline;
 }
 
