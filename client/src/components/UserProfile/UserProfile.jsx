@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./UserProfileStyles.module.css";
+import { Link } from "react-router-dom";
 
 export default function UserProfile({ userData, setUserData }) {
   const [imagePreview, setImagePreview] = useState(userData?.picture);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     setImagePreview(userData?.picture);
@@ -19,6 +21,16 @@ export default function UserProfile({ userData, setUserData }) {
       }));
     }
   };
+
+  useEffect(() => {
+    try {
+      let localMovies = JSON.parse(localStorage.getItem("movies") || []);
+      setMovies(localMovies);
+    } catch (error) {
+      setMovies([]);
+      console.log(error);
+    }
+  }, []);
 
   return (
     <section className="container">
@@ -46,9 +58,9 @@ export default function UserProfile({ userData, setUserData }) {
         </div>
 
         <div className={styles.infoContainer}>
-          <div className={styles.infoBox}>
-            <p>Watchlater list: 3 movies</p>
-          </div>
+          <Link to={"/watch-later"} className={styles.infoBox}>
+            <p>Watchlater list: {movies.length} movies</p>
+          </Link>
         </div>
       </div>
     </section>
