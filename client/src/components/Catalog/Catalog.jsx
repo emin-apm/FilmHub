@@ -11,11 +11,10 @@ export default function Catalog({
   isLoading,
   error,
 }) {
-  // Sort genres by name (value)
-
   const sortedGenres = genres
     ? Object.entries(genres).sort(([, a], [, b]) => a.localeCompare(b))
     : [];
+
   return (
     <section className={`${styles.catalogContainer} container`}>
       <div className={styles.heading}>
