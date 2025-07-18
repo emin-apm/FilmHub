@@ -36,6 +36,9 @@
   flex-wrap: wrap;
 }
 
+.buttonContainer i {
+  margin-right: 0.4em;
+}
 .button {
   padding: 8px 16px;
   background-color: #ddd;
@@ -85,5 +88,19 @@
 @media (max-width: 580px) {
   .moviesContainer {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .moviesContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .buttonContainer {
+    gap: 5px;
+  }
+
+  .button,
+  .selectedButton {
+    padding: 2px 8px;
   }
 }

@@ -12,7 +12,9 @@ export default function Catalog({
   error,
 }) {
   const sortedGenres = genres
-    ? Object.entries(genres).sort(([, a], [, b]) => a.localeCompare(b))
+    ? Object.entries(genres).sort(([, a], [, b]) =>
+        a.name.localeCompare(b.name)
+      )
     : [];
 
   return (
@@ -24,7 +26,7 @@ export default function Catalog({
       {/* Genre buttons */}
       {sortedGenres.length > 0 && (
         <div className={styles.buttonContainer}>
-          {sortedGenres.map(([id, name]) => (
+          {sortedGenres.map(([id, { name, icon }]) => (
             <button
               key={id}
               onClick={() => handleGenreToggle(id)}
@@ -34,6 +36,7 @@ export default function Catalog({
                   : styles.button
               }
             >
+              <i className={`fa-solid ${icon}`}></i>
               {name}
             </button>
           ))}
