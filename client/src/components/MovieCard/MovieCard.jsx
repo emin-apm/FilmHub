@@ -13,7 +13,7 @@ export default function MovieCard({ movie }) {
       .join(", ");
   } else if (movie.genre_ids) {
     genreNames = movie.genre_ids
-      .map((id) => genres[id])
+      .map((id) => genres[id]?.name)
       .filter(Boolean)
       .join(", ");
   } else {
