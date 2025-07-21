@@ -5,8 +5,8 @@ import useGetData from "../hooks/useGetData";
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 
 let type = {
-  1: "TV",
-  2: "Movie",
+  1: { name: "TV" },
+  2: { name: "Movie" },
 };
 
 export default function WatchLaterPage() {
