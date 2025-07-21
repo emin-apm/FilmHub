@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { formattedDate } from "../../utils/dateConvert";
 import convertToEmbedUrl from "../../utils/embedUrlCovert";
 import { Link, useParams } from "react-router-dom";
+import fallbackImg from "../../assets/fallbackImg.jpg";
 
 export default function MovieDetails({
   movie,
@@ -60,7 +61,11 @@ export default function MovieDetails({
       <div className={styles.movieBanner}>
         <div className={styles.mBannerImg}>
           <img
-            src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
+            src={
+              movie.backdrop_path
+                ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`
+                : fallbackImg
+            }
             alt={`Backdrop image for ${movie.title || movie.name}`}
           />
         </div>
