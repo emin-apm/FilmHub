@@ -36,7 +36,7 @@ export default function Catalog({
                   : styles.button
               }
             >
-              <i className={`fa-solid ${icon}`}></i>
+              {icon && <i className={`fa-solid ${icon}`}></i>}
               {name}
             </button>
           ))}
