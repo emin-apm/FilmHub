@@ -1,38 +1,39 @@
 .heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 14px;
-    background: var(--container-color);
-    border: 1px solid hsl(200 100% 99% / 5%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: var(--container-color);
+  border: 1px solid hsl(200 100% 99% / 5%);
 }
 
 .headingTitle {
-    font-size: 1.2rem;
-    font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .arrows {
-    display: flex;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
 
 .arrows i {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .movieSlider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px auto;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  width: 100%;
 }
 
 .swiper_slide {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1em;
+  height: auto !important;
 }
