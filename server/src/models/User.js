@@ -1,17 +1,20 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    movies: [
+    playlist: [
       {
-        id: { type: String },
-        name: { type: String },
-        img: { type: String },
-        date: { type: String },
-        genre: [{ type: String }],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Playlist",
+      },
+    ],
+    sharedPlaylist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Playlist",
       },
     ],
   },
