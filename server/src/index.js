@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/connectDB.js";
+import { logger } from "./middleware/logger.js";
 
 dotenv.config();
 
@@ -13,6 +14,9 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+
+//test logger middleware
+app.use(logger);
 
 app.get("/", (req, res) => {
   res.send("Hello from server...!");
