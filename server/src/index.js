@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/connectDB.js";
 import { logger } from "./middleware/logger.js";
+import router from "./router.js";
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(cors());
 
 //test logger middleware
 app.use(logger);
+
+app.use(router);
 
 app.get("/", (req, res) => {
   res.send("Hello from server...!");
