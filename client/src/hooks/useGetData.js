@@ -5,7 +5,7 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export default function useGetData(queryKey, link) {
   return useQuery({
-    queryKey: [queryKey],
+    queryKey: [queryKey, link],
     queryFn: async () => {
       const res = await axios.get(link, {
         params: {
