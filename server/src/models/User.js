@@ -1,10 +1,19 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+
+const SALT_WORK_FACTOR = parseInt(process.env.SALT_WORK_FACTOR) || 10;
 
 const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
+    username: { type: String },
+    avatar: { type: String },
+    authProvider: {
+      type: String,
+      enum: ["local", "google"],
+      default: "local",
+    },
     playlist: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,18 +31,24 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+  if (this.isModified("email") && this.email) {
+    this.email = this.email.toLowerCase();
+  }
+
+  if (this.authProvider !== "local" || !this.isModified("password")) {
+    return next();
+  }
 
   try {
-    const hash = await bcrypt.hash(this.password, 10);
+    const hash = await bcrypt.hash(this.password, SALT_WORK_FACTOR);
     this.password = hash;
     next();
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 });
 
-userSchema.methods.comparePassword = function (candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
