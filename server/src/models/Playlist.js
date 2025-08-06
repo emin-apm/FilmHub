@@ -18,6 +18,12 @@ const playlistSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    pendingRequest: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { timestamps: true }
 );
