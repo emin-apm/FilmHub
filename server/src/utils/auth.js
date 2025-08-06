@@ -1,7 +1,7 @@
-import { generateAccessToken, generateRefreshToken } from "./tokenService";
+import { generateAccessToken, generateRefreshToken } from "./tokenService.js";
 
 export function getAuthResult(user) {
-  const accesToken = generateAccessToken(user);
+  const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
   return {
@@ -9,7 +9,7 @@ export function getAuthResult(user) {
     userData: {
       _id: user._id,
       email: user.email,
-      accesToken,
+      accessToken,
     },
   };
 }
