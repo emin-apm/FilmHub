@@ -5,11 +5,11 @@ export function getAuthResult(user) {
   const refreshToken = generateRefreshToken(user);
 
   return {
+    refreshToken,
     userData: {
       _id: user._id,
       email: user.email,
       accesToken,
     },
-    refreshToken,
   };
 }
