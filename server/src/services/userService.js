@@ -1,5 +1,5 @@
-import User from "../models/User";
-import { getAuthResult } from "../utils/auth";
+import User from "../models/User.js";
+import { getAuthResult } from "../utils/auth.js";
 import jwt from "jsonwebtoken";
 
 export async function login({ email, password }) {
