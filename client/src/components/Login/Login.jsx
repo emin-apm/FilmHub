@@ -5,6 +5,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { lockScroll, unlockScroll } from "../../utils/scrollLock";
 import getBiggerGoogleProfilePic from "../../utils/getBiggerGooglePic";
+import * as userService from "../../services/authServices";
 
 export default function Login({ onClose }) {
   const { setUserData } = useContext(UserContext);
@@ -54,13 +55,15 @@ export default function Login({ onClose }) {
     }));
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setUserData({
-      email: formData.email,
-      username: formData.email.split("@")[0],
-      picture: null,
-    });
+
+    try {
+      const user = await userService.login(formData.email, formData.password);
+      setUserData(user);
+    } catch (error) {
+      alert(error.message);
+    }
     onClose();
   };
 
@@ -72,11 +75,10 @@ export default function Login({ onClose }) {
       return;
     }
 
-    setUserData({
-      email: formData.email,
-      username: formData.username || formData.email.split("@")[0],
-      picture: null,
-    });
+    try {
+    } catch (error) {
+      alert(error.message);
+    }
 
     onClose();
   };
