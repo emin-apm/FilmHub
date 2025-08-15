@@ -14,7 +14,17 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow requests with no origin (like Postman or server-to-server)
+      if (!origin) return callback(null, true);
+      // allow all other origins dynamically
+      return callback(null, true);
+    },
+    credentials: true, // allow cookies
+  })
+);
 
 //test logger middleware
 app.use(logger);
