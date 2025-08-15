@@ -2,10 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./LoginStyles.module.css";
 import UserContext from "../../context/UserContext";
 import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
-import { lockScroll, unlockScroll } from "../../utils/scrollLock";
-import getBiggerGoogleProfilePic from "../../utils/getBiggerGooglePic";
 import * as userService from "../../services/authServices";
+import { lockScroll, unlockScroll } from "../../utils/scrollLock";
 
 export default function Login({ onClose }) {
   const { setUserData } = useContext(UserContext);
@@ -14,39 +12,26 @@ export default function Login({ onClose }) {
     email: "",
     password: "",
     confirmPassword: "",
-    username: "",
   });
 
   const [isRegistering, setIsRegistering] = useState(false);
 
-  const login = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (response) => {
       try {
-        const res = await axios.get(
-          "https://www.googleapis.com/oauth2/v3/userinfo",
-          {
-            headers: {
-              Authorization: `Bearer ${tokenResponse.access_token}`,
-            },
-          }
-        );
-        const userInfo = res.data;
-        const highResPic = getBiggerGoogleProfilePic(userInfo.picture);
-        setUserData({
-          email: userInfo.email,
-          username: userInfo.name,
-          picture: highResPic,
+        const user = await userService.googleSign({
+          access_token: response.access_token,
         });
+        setUserData(user);
         onClose();
-      } catch (error) {
-        console.error("Failed to fetch Google user info", error);
+      } catch (err) {
+        console.error("Google login failed", err);
       }
     },
-    onError: (errorResponse) => {
-      console.error("Login Failed:", errorResponse);
-    },
+    onError: (err) => console.error("Google login error:", err),
   });
 
+  // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -55,38 +40,40 @@ export default function Login({ onClose }) {
     }));
   };
 
+  // Email/password login
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const user = await userService.login(formData.email, formData.password);
       setUserData(user);
+      onClose();
     } catch (error) {
       alert(error.message);
     }
-    onClose();
   };
 
-  const handleRegister = (e) => {
+  // Email/password registration
+  const handleRegister = async (e) => {
     e.preventDefault();
-
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match.");
       return;
     }
 
     try {
+      const user = await userService.register(
+        formData.email,
+        formData.password
+      );
+      setUserData(user);
+      onClose();
     } catch (error) {
       alert(error.message);
     }
-
-    onClose();
   };
 
   const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    if (e.target === e.currentTarget) onClose();
   };
 
   useEffect(() => {
@@ -96,14 +83,10 @@ export default function Login({ onClose }) {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
+      if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
   return (
@@ -112,8 +95,10 @@ export default function Login({ onClose }) {
         <span className={styles.close} onClick={onClose}>
           <i className="fa-solid fa-xmark"></i>
         </span>
+
         <div className={`${styles.formBox} ${styles.login}`}>
           <h2>{isRegistering ? "Register" : "Login"}</h2>
+
           <form onSubmit={isRegistering ? handleRegister : handleLogin}>
             <div className={styles.inputBox}>
               <span className={styles.icon}>
@@ -180,7 +165,11 @@ export default function Login({ onClose }) {
               <span className={styles.dividerText}>or</span>
             </div>
 
-            <button type="button" className={styles.btn} onClick={login}>
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={loginWithGoogle}
+            >
               <i className="fa-brands fa-google"></i>{" "}
               {isRegistering ? "Register with Google" : "Login with Google"}
             </button>
