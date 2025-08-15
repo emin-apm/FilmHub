@@ -12,7 +12,7 @@ const endpoints = {
   logout: "/user/logout",
 };
 
-function handleErrorr(error) {
+function handleError(error) {
   if (error.response) {
     throw new Error(error.response.data.message || "Server error");
   } else if (error.request) {
@@ -22,29 +22,29 @@ function handleErrorr(error) {
   }
 }
 
-export async function login(email, password) {
+// Generic request wrapper
+async function request(method, url, data) {
   try {
-    const res = await api.post(endpoints.login, { email, password });
+    const res = await api[method](url, data);
     return res.data;
   } catch (err) {
-    handleErrorr(err);
+    handleError(err);
   }
 }
 
-export async function rergister(email, password) {
-  try {
-    const res = await api.post(endpoints.register, { email, password });
-    return res.data;
-  } catch (err) {
-    handleErrorr(err);
-  }
+// Auth service methods
+export function login(email, password) {
+  return request("post", endpoints.login, { email, password });
 }
 
-export async function logout() {
-  try {
-    const res = await api.post(endpoints.logout);
-    return res.data;
-  } catch (error) {
-    handleErrorr(err);
-  }
+export function register(email, password) {
+  return request("post", endpoints.register, { email, password });
+}
+
+export function googleSign({ access_token }) {
+  return request("post", endpoints.google, { access_token });
+}
+
+export function logout() {
+  return request("post", endpoints.logout);
 }
