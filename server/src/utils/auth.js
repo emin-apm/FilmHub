@@ -1,3 +1,5 @@
+import { generateAccessToken, generateRefreshToken } from "./tokenService.js";
+
 export function getAuthResult(user) {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
