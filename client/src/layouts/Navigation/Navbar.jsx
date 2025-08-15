@@ -70,7 +70,7 @@ export default function Navbar() {
             }
           }}
         >
-          <img src={userData?.picture} alt="Profile Img" />
+          <img src={userData?.avatar} alt="Profile Img" />
         </div>
 
         {loginModal && <Login onClose={() => setLoginModal(false)} />}

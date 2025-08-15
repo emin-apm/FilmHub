@@ -35,8 +35,6 @@ export default function MovieCard({ movie }) {
     return "No genres available";
   }, [genreObjects, genre_ids]);
 
-  console.log(poster_path);
-
   return (
     <Link className={styles.cardBox} to={`/${media_type}/${id}`}>
       <div className={styles.cardOverlay}>

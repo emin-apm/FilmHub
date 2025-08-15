@@ -3,12 +3,12 @@ import styles from "./UserProfileStyles.module.css";
 import { Link } from "react-router-dom";
 
 export default function UserProfile({ userData, setUserData }) {
-  const [imagePreview, setImagePreview] = useState(userData?.picture);
+  const [imagePreview, setImagePreview] = useState(userData?.avatar);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    setImagePreview(userData?.picture);
-  }, [userData?.picture]);
+    setImagePreview(userData?.avatar);
+  }, [userData?.avatar]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -17,7 +17,7 @@ export default function UserProfile({ userData, setUserData }) {
       setImagePreview(imageUrl);
       setUserData((prev) => ({
         ...prev,
-        picture: imageUrl,
+        avatar: imageUrl,
       }));
     }
   };
