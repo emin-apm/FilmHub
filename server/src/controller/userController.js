@@ -44,10 +44,17 @@ router.post("/googleSign", toLowerCase, async (req, res) => {
 router.post("/refresh-token", async (req, res) => {
   try {
     const refreshToken = req.cookies.authcookie;
+    console.log(refreshToken);
     if (!refreshToken) throw new Error("Refresh token missing!");
+
     const result = await userService.refreshToken(refreshToken);
+
     res.cookie("authcookie", result.refreshToken, cookieOptions);
-    res.status(200).json({ accessToken: result.accessToken });
+
+    res.status(200).json({
+      accessToken: result.userData.accessToken,
+      userData: result.userData,
+    });
   } catch (error) {
     res.status(401).json({ message: error.message });
   }
