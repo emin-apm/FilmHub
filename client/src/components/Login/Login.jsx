@@ -4,6 +4,7 @@ import UserContext from "../../context/UserContext";
 import { useGoogleLogin } from "@react-oauth/google";
 import * as userService from "../../services/authServices";
 import { lockScroll, unlockScroll } from "../../utils/scrollLock";
+import porifilImg from "../../assets/profilImg.png";
 
 export default function Login({ onClose }) {
   const { setUserData } = useContext(UserContext);
@@ -45,7 +46,11 @@ export default function Login({ onClose }) {
     e.preventDefault();
     try {
       const user = await userService.login(formData.email, formData.password);
-      setUserData(user);
+      setUserData({
+        avatar: user.avatar || porifilImg,
+        email: user.email,
+        username: user.username,
+      });
       onClose();
     } catch (error) {
       alert(error.message);
@@ -65,7 +70,11 @@ export default function Login({ onClose }) {
         formData.email,
         formData.password
       );
-      setUserData(user);
+      setUserData({
+        avatar: user.avatar || porifilImg,
+        email: user.email || formData.email,
+        username: user.username || formData.username,
+      });
       onClose();
     } catch (error) {
       alert(error.message);
