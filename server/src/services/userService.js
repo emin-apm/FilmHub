@@ -17,7 +17,9 @@ export async function login({ email, password }) {
 
 export async function register({ email, password }) {
   if (await User.findOne({ email })) throw new Error("User already exists!");
-  const user = await User.create({ email, password });
+
+  let username = email.split("@")[0];
+  const user = await User.create({ email, username, password });
   return getAuthResult(user);
 }
 
