@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./UserProfileStyles.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import porifilImg from "../../assets/profilImg.png";
 
 export default function UserProfile({ userData, setUserData }) {
   const [imagePreview, setImagePreview] = useState(userData?.avatar);
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setImagePreview(userData?.avatar);
@@ -19,6 +21,24 @@ export default function UserProfile({ userData, setUserData }) {
         ...prev,
         avatar: imageUrl,
       }));
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await fetch("http://localhost:5000/user/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      setUserData({
+        avatar: porifilImg,
+        email: null,
+        username: null,
+      });
+      navigate("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
     }
   };
 
@@ -62,6 +82,10 @@ export default function UserProfile({ userData, setUserData }) {
             <p>Watchlater list: {movies.length} movies</p>
           </Link>
         </div>
+        <button className={styles.button} onClick={() => logout()}>
+          <i className="fa-solid fa-arrow-right-from-bracket"></i>
+          Logout
+        </button>
       </div>
     </section>
   );
