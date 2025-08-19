@@ -9,7 +9,11 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const mongoURI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/movie-hub";
+
+const mongoURI =
+  process.env.NODE_ENV === "production"
+    ? process.env.MONGO_URI_ATLAS
+    : process.env.MONGO_URI_LOCAL;
 
 const app = express();
 
@@ -38,7 +42,7 @@ app.get("/", (req, res) => {
 });
 
 connectDB(mongoURI).then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}...`);
-  });
+  app.listen(PORT, () =>
+    console.log(`🚀 Server running on port ${PORT} with Atlas DB`)
+  );
 });
