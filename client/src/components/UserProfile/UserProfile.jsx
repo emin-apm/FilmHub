@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./UserProfileStyles.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useResolvedPath } from "react-router-dom";
 import porifilImg from "../../assets/profilImg.png";
+import * as userService from "../../services/authServices";
 
 export default function UserProfile({ userData, setUserData }) {
   const [imagePreview, setImagePreview] = useState(userData?.avatar);
@@ -11,6 +12,14 @@ export default function UserProfile({ userData, setUserData }) {
   useEffect(() => {
     setImagePreview(userData?.avatar);
   }, [userData?.avatar]);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview && imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -26,10 +35,7 @@ export default function UserProfile({ userData, setUserData }) {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:5000/user/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      await userService.logout();
 
       setUserData({
         avatar: porifilImg,
@@ -57,7 +63,11 @@ export default function UserProfile({ userData, setUserData }) {
       <div className={styles.profileContainer}>
         <div className={styles.mediaContainer}>
           <div className={styles.userImg}>
-            <img src={imagePreview} alt="Profile" />
+            <img
+              src={imagePreview}
+              alt="Profile"
+              referrerPolicy="no-referrer"
+            />
           </div>
 
           <label className={styles.button}>
