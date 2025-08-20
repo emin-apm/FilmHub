@@ -6,7 +6,12 @@ const SALT_WORK_FACTOR = parseInt(process.env.SALT_WORK_FACTOR) || 10;
 const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
-    password: { type: String },
+    password: {
+      type: String,
+      required: function () {
+        return this.authProvider === "local";
+      },
+    },
     username: { type: String },
     avatar: { type: String },
     authProvider: {
@@ -14,10 +19,14 @@ const userSchema = new mongoose.Schema(
       enum: ["local", "google"],
       default: "local",
     },
-    playlist: [
+    movies: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Playlist",
+        id: { type: String, required: true },
+        name: { type: String, required: true },
+        img: { type: String },
+        date: { type: String },
+        genre: [{ type: String }],
+        addedAt: { type: Date, default: Date.now },
       },
     ],
     sharedPlaylist: [
