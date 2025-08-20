@@ -12,6 +12,7 @@ const endpoints = {
   logout: "/user/logout",
 };
 
+//Error handler
 function handleError(error) {
   if (error.response) {
     throw new Error(error.response.data.message || "Server error");
@@ -23,7 +24,7 @@ function handleError(error) {
 }
 
 // Generic request wrapper
-async function request(method, url, data) {
+async function request(method, url, data = null) {
   try {
     const res = await api[method](url, data);
     return res.data;
