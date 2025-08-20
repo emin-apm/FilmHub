@@ -10,14 +10,12 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <UserProvider>
-          <App />
-        </UserProvider>
-      </GoogleOAuthProvider>
-      <ReactQueryDevtools initialOpen={false} />
-    </QueryClientProvider>
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </GoogleOAuthProvider>
+    <ReactQueryDevtools initialOpen={false} />
+  </QueryClientProvider>
 );
