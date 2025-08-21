@@ -5,7 +5,7 @@ const SALT_WORK_FACTOR = parseInt(process.env.SALT_WORK_FACTOR) || 10;
 
 const userSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true, index: true },
     password: {
       type: String,
       required: function () {
@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema(
     },
     movies: [
       {
-        id: { type: String, required: true },
-        name: { type: String, required: true },
+        id: { type: Number, required: true },
+        title: { type: String, required: true },
         img: { type: String },
         date: { type: String },
         genre: [{ type: String }],
@@ -58,6 +58,7 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
+  if (!this.password) return false;
   return bcrypt.compare(candidatePassword, this.password);
 };
 
