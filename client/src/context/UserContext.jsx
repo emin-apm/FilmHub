@@ -5,12 +5,15 @@ let UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(() => {
-    // Load from localStorage if exists
     const saved = localStorage.getItem("avatar");
     return {
+      _id: null,
       avatar: saved || porifilImg,
       email: null,
       username: null,
+      movies: [],
+      sharedPlaylist: [],
+      accessToken: null,
     };
   });
 
@@ -25,26 +28,33 @@ export const UserProvider = ({ children }) => {
         if (!res.ok) {
           console.log("No valid refresh token or user not logged");
           setUserData({
+            _id: null,
             avatar: porifilImg,
             email: null,
             username: null,
+            movies: [],
+            sharedPlaylist: [],
+            accessToken: null,
           });
           localStorage.removeItem("avatar");
           return;
         }
 
         const { userData: fetchedUser = {} } = await res.json();
-        const avatarUrl = fetchedUser.avatar || porifilImg;
 
-        // Save to state
+        // Save all relevant fields
         setUserData({
-          avatar: avatarUrl,
+          _id: fetchedUser._id || null,
+          avatar: fetchedUser.avatar || porifilImg,
           email: fetchedUser.email || null,
           username: fetchedUser.username || null,
+          movies: fetchedUser.movies || [],
+          sharedPlaylist: fetchedUser.sharedPlaylist || [],
+          accessToken: fetchedUser.accessToken || null,
         });
 
         // Cache avatar in localStorage
-        localStorage.setItem("avatar", avatarUrl);
+        localStorage.setItem("avatar", fetchedUser.avatar || porifilImg);
       } catch (err) {
         console.error("Error checking auth:", err);
       }
