@@ -7,9 +7,7 @@ function getBiggerGoogleProfilePic(url, size = 450) {
 }
 
 export async function login({ email, password }) {
-  const user = await User.findOne({ email })
-    .populate("playlist")
-    .populate("sharedPlaylist");
+  const user = await User.findOne({ email }).populate("sharedPlaylist");
   if (!user || !(await user.comparePassword(password)))
     throw new Error("Invalid email or password.");
   return getAuthResult(user);
@@ -26,9 +24,7 @@ export async function register({ email, password }) {
 export async function refreshToken(token) {
   try {
     const payload = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-    const user = await User.findById(payload._id)
-      .populate("movies")
-      .populate("sharedPlaylist");
+    const user = await User.findById(payload._id).populate("sharedPlaylist");
     if (!user) throw new Error("User not found");
     return getAuthResult(user);
   } catch {
@@ -61,9 +57,9 @@ export async function googleSign({ access_token }) {
   }
 
   // 3. Populate related fields
-  const populatedUser = await User.findById(user._id)
-    .populate("movies")
-    .populate("sharedPlaylist");
+  const populatedUser = await User.findById(user._id).populate(
+    "sharedPlaylist"
+  );
 
   // 4. Return your own JWTs and user data
   return getAuthResult(populatedUser);
