@@ -18,7 +18,7 @@
 }
 
 .heroText {
-  padding-left: 40px;
+  padding: 35px;
   font-size: 2em;
   text-shadow: 1px 1px 2px black;
   z-index: 1;
