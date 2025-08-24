@@ -1,11 +1,15 @@
+import { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+
 import styles from "./MovieDetailsStyles.module.css";
 import TrailerModal from "../TrailerModal/TrailerModal";
 import MovieSites from "./MovieSites";
-import { useEffect, useState } from "react";
+import fallbackImg from "../../assets/fallbackImg.jpg";
+import UserContext from "../../context/UserContext";
+import * as userPlaylistService from "../../services/userListService";
 import { formattedDate } from "../../utils/dateConvert";
 import convertToEmbedUrl from "../../utils/embedUrlCovert";
-import { Link, useParams } from "react-router-dom";
-import fallbackImg from "../../assets/fallbackImg.jpg";
 
 export default function MovieDetails({
   movie,
@@ -16,35 +20,72 @@ export default function MovieDetails({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { media_type } = useParams();
+  const { userData, setUserData } = useContext(UserContext);
 
-  useEffect(() => {
-    if (!movie) return;
-    const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
-    const exists = storedMovies.some((x) => x.id === movie.id);
-    setIsSaved(exists);
-  }, [movie]);
+  const userId = userData?._id;
 
-  const addToWatchLater = (movie) => {
-    const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
-    const exist = storedMovies.some((x) => x.id === movie.id);
+  const addMovieMutation = useMutation({
+    mutationFn: ({ userId, movie }) =>
+      userPlaylistService.addMovie(userId, movie),
+    onMutate: async ({ movie }) => {
+      setIsSaved(true),
+        setUserData((prev) => ({
+          ...prev,
+          movies: [...(prev.movies || []), movie],
+        }));
+    },
+    onError: (error) => {
+      console.log("Erro adding movie", error.message);
+    },
+  });
 
-    if (!exist) {
-      const movieWithType = { ...movie, media_type };
-      storedMovies.push(movieWithType);
+  const removeMovieMutation = useMutation({
+    mutationFn: ({ userId, movieId }) =>
+      userPlaylistService.removeMovie(userId, movieId),
+    onMutate: async ({ movieId }) => {
+      setIsSaved(false);
+      setUserData((prev) => ({
+        movies: [prev.movies || []].filter((x) => x.id != movieId),
+      }));
+    },
+  });
 
-      localStorage.setItem("movies", JSON.stringify(storedMovies));
-      setIsSaved(true);
-      console.log("Movie added");
+  const handleAddMovie = (movie) => {
+    if (userId) {
+      addMovieMutation.mutate({ userId, movie: { ...movie, media_type } });
+    } else {
+      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+      if (!storedMovies.some((x) => x.id === movie.id)) {
+        storedMovies.push({ ...movie, media_type });
+        localStorage.setItem("movies", JSON.stringify(storedMovies));
+        setIsSaved(true);
+      }
     }
   };
 
-  const removeMovieFromLocalStorage = (movieId) => {
-    const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
-    const updatedMovies = storedMovies.filter((movie) => movie.id !== movieId);
-    localStorage.setItem("movies", JSON.stringify(updatedMovies));
-    setIsSaved(false);
-    console.log("Movie removed (if it existed)");
+  const handleRemoveMovie = (movieId) => {
+    if (userId) {
+      removeMovieMutation.mutate({ userId, movieId });
+    } else {
+      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+      const updatedMovies = storedMovies.filter((m) => m.id !== movieId);
+      localStorage.setItem("movies", JSON.stringify(updatedMovies));
+      setIsSaved(false);
+    }
   };
+
+  useEffect(() => {
+    if (!movie) return;
+
+    if (userId) {
+      const exists = userData.movies?.some((x) => x.id === movie.id);
+      setIsSaved(exists);
+    } else {
+      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+      const exists = storedMovies.some((x) => x.id === movie.id);
+      setIsSaved(exists);
+    }
+  }, [movie, userId, userData.movies]);
 
   if (!movie) return null;
 
@@ -114,7 +155,7 @@ export default function MovieDetails({
             {isSaved ? (
               <div
                 className={styles.button}
-                onClick={() => removeMovieFromLocalStorage(movie.id)}
+                onClick={() => handleRemoveMovie(movie.id)}
               >
                 <i className="fa-solid fa-trash"></i>
                 Remove
@@ -122,7 +163,7 @@ export default function MovieDetails({
             ) : (
               <div
                 className={styles.button}
-                onClick={() => addToWatchLater(movie)}
+                onClick={() => handleAddMovie(movie)}
               >
                 <i className="fa-solid fa-clapperboard"></i>
                 Watch Later
