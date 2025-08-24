@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./UserProfileStyles.module.css";
-import { Link, useNavigate, useResolvedPath } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import porifilImg from "../../assets/profilImg.png";
 import * as userService from "../../services/authServices";
 
@@ -8,18 +8,6 @@ export default function UserProfile({ userData, setUserData }) {
   const [imagePreview, setImagePreview] = useState(userData?.avatar);
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setImagePreview(userData?.avatar);
-  }, [userData?.avatar]);
-
-  useEffect(() => {
-    return () => {
-      if (imagePreview && imagePreview.startsWith("blob:")) {
-        URL.revokeObjectURL(imagePreview);
-      }
-    };
-  }, [imagePreview]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -49,14 +37,30 @@ export default function UserProfile({ userData, setUserData }) {
   };
 
   useEffect(() => {
-    try {
-      let localMovies = JSON.parse(localStorage.getItem("movies") || []);
-      setMovies(localMovies);
-    } catch (error) {
-      setMovies([]);
-      console.log(error);
+    if (userData) {
+      setMovies(userData.movies);
+    } else {
+      try {
+        const localMovies = JSON.parse(localStorage.getItem("movies") || "[]");
+        setMovies(localMovies);
+      } catch (error) {
+        setMovies([]);
+        console.error(error);
+      }
     }
-  }, []);
+  }, [userData?.movies]);
+
+  useEffect(() => {
+    setImagePreview(userData?.avatar);
+  }, [userData?.avatar]);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview && imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   return (
     <section className="container">
