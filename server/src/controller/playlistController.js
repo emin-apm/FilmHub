@@ -79,13 +79,4 @@ router.post("/:playlistId/share/:userId", async (req, res) => {
   }
 });
 
-router.get("/:userId/movies", async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const playlists = await playlistService.getUserMovies(userId);
-
-    res.status(200).json(playlists);
-  } catch (error) {}
-});
-
 export default router;
