@@ -62,7 +62,6 @@ export default function Navbar() {
           className={styles.user}
           onClick={() => {
             if (userData.email) {
-              console.log(userData.email);
               navigate("/profile");
             } else {
               console.log("no user");
