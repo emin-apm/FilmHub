@@ -7,13 +7,13 @@ export function getAuthResult(user) {
   return {
     refreshToken,
     userData: {
+      accessToken,
       _id: user._id,
       email: user.email,
       username: user.username,
       avatar: user.avatar,
-      playlist: user.playlist || [],
+      movies: user.movies || [],
       sharedPlaylist: user.sharedPlaylist || [],
-      accessToken,
     },
   };
 }
