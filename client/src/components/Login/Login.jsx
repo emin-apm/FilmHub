@@ -1,88 +1,80 @@
 import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useMutation } from "@tanstack/react-query";
+
 import styles from "./LoginStyles.module.css";
 import UserContext from "../../context/UserContext";
-import { useGoogleLogin } from "@react-oauth/google";
 import * as userService from "../../services/authServices";
 import { lockScroll, unlockScroll } from "../../utils/scrollLock";
 import porifilImg from "../../assets/profilImg.png";
+import { loginSchema, registerSchema } from "../../validation/authSchema.js";
 
 export default function Login({ onClose }) {
   const { setUserData } = useContext(UserContext);
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
   const [isRegistering, setIsRegistering] = useState(false);
 
-  const loginWithGoogle = useGoogleLogin({
-    onSuccess: async (response) => {
-      try {
-        const user = await userService.googleSign({
-          access_token: response.access_token,
-        });
-        setUserData(user);
-        onClose();
-      } catch (err) {
-        console.error("Google login failed", err);
-      }
-    },
-    onError: (err) => console.error("Google login error:", err),
+  // react-hook-form setup
+  const {
+    register: formRegister,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(isRegistering ? registerSchema : loginSchema),
   });
 
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // Email/password login
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const user = await userService.login(formData.email, formData.password);
+  // React Query mutations
+  const loginMutation = useMutation({
+    mutationFn: ({ email, password }) => userService.login(email, password),
+    onSuccess: (user) => {
       setUserData({
         avatar: user.avatar || porifilImg,
         email: user.email,
         username: user.username,
+        movies: user.movies,
+        sharedPlaylist: user.sharedPlaylist,
       });
       onClose();
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    },
+    onError: (error) => console.error("Login failed:", error.message),
+  });
 
-  // Email/password registration
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    try {
-      const user = await userService.register(
-        formData.email,
-        formData.password
-      );
+  const registerMutation = useMutation({
+    mutationFn: ({ email, password }) => userService.register(email, password),
+    onSuccess: (user) => {
       setUserData({
         avatar: user.avatar || porifilImg,
-        email: user.email || formData.email,
-        username: user.username || formData.username,
+        email: user.email,
+        username: user.username,
+        movies: user.movies,
+        sharedPlaylist: user.sharedPlaylist,
       });
       onClose();
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    },
+    onError: (error) => console.error("Registration failed:", error.message),
+  });
 
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) onClose();
+  const googleMutation = useMutation({
+    mutationFn: (access_token) => userService.googleSign({ access_token }),
+    onSuccess: (user) => {
+      setUserData(user);
+      onClose();
+    },
+    onError: (error) => console.error("Google login failed", error),
+  });
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: (response) => googleMutation.mutate(response.access_token),
+    onError: (err) => console.error("Google login error:", err),
+  });
+
+  const onSubmit = (data) => {
+    if (isRegistering) {
+      registerMutation.mutate({ email: data.email, password: data.password });
+    } else {
+      loginMutation.mutate({ email: data.email, password: data.password });
+    }
   };
 
   useEffect(() => {
@@ -99,7 +91,10 @@ export default function Login({ onClose }) {
   }, [onClose]);
 
   return (
-    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+    <div
+      className={styles.modalOverlay}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
       <div className={styles.wrapper}>
         <span className={styles.close} onClick={onClose}>
           <i className="fa-solid fa-xmark"></i>
@@ -108,37 +103,36 @@ export default function Login({ onClose }) {
         <div className={`${styles.formBox} ${styles.login}`}>
           <h2>{isRegistering ? "Register" : "Login"}</h2>
 
-          <form onSubmit={isRegistering ? handleRegister : handleLogin}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Email */}
             <div className={styles.inputBox}>
               <span className={styles.icon}>
                 <i className="fa-solid fa-envelope"></i>
               </span>
-              <input
-                type="email"
-                name="email"
-                placeholder=" "
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-              />
+              <input type="email" {...formRegister("email")} placeholder=" " />
+              {errors.email && (
+                <p className={styles.error}>{errors.email.message}</p>
+              )}
               <label>Email</label>
             </div>
 
+            {/* Password */}
             <div className={styles.inputBox}>
               <span className={styles.icon}>
                 <i className="fa-solid fa-lock"></i>
               </span>
               <input
                 type="password"
-                name="password"
+                {...formRegister("password")}
                 placeholder=" "
-                required
-                value={formData.password}
-                onChange={handleInputChange}
               />
+              {errors.password && (
+                <p className={styles.error}>{errors.password.message}</p>
+              )}
               <label>Password</label>
             </div>
 
+            {/* Confirm password for register */}
             {isRegistering && (
               <div className={styles.inputBox}>
                 <span className={styles.icon}>
@@ -146,27 +140,23 @@ export default function Login({ onClose }) {
                 </span>
                 <input
                   type="password"
-                  name="confirmPassword"
+                  {...formRegister("confirmPassword")}
                   placeholder=" "
-                  required
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
                 />
+                {errors.confirmPassword && (
+                  <p className={styles.error}>
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
                 <label>Confirm Password</label>
               </div>
             )}
 
-            {!isRegistering && (
-              <div className={styles.rememberCheck}>
-                <label htmlFor="remember">
-                  <input type="checkbox" id="remember" />
-                  Remember Me
-                </label>
-                <a href="">Forgot password?</a>
-              </div>
-            )}
-
-            <button type="submit" className={styles.btn}>
+            <button
+              type="submit"
+              className={styles.btn}
+              disabled={loginMutation.isPending || registerMutation.isPending}
+            >
               {isRegistering ? "Register" : "Login"}
             </button>
 
