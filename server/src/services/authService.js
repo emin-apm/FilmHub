@@ -2,10 +2,6 @@ import User from "../models/User.js";
 import { getAuthResult } from "../utils/auth.js";
 import jwt from "jsonwebtoken";
 
-function getBiggerGoogleProfilePic(url, size = 450) {
-  return url.replace(/s\d+-c$/, `s${size}-c`);
-}
-
 export async function login({ email, password }) {
   const user = await User.findOne({ email }).populate("sharedPlaylist");
   if (!user || !(await user.comparePassword(password)))
@@ -51,7 +47,7 @@ export async function googleSign({ access_token }) {
     user = await User.create({
       email,
       username,
-      avatar: getBiggerGoogleProfilePic(avatar),
+      avatar,
       authProvider: "google",
     });
   }
