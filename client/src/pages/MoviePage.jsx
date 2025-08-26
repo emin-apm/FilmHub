@@ -39,7 +39,7 @@ export default function MoviePage() {
   } = useGetData("similarMovies", `${BASE_URL}/movie/${id}/recommendations`);
 
   const isLoading = movieLoading || trailerLoading;
-  const error = movieError || trailerError || similaMoviesError;
+  const error = movieError || trailerError;
 
   if (isLoading)
     return (
@@ -67,6 +67,7 @@ export default function MoviePage() {
         title={"You may also like..."}
         movies={similarMovies}
         isLoading={similarMoviesIsLoading}
+        error={similaMoviesError}
       />
     </>
   );
