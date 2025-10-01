@@ -192,6 +192,24 @@ export default function MovieDetails({
           )}
         </p>
         <p>
+          <strong>Actors: </strong>
+
+          {imdbRating?.Actors.split(", ").map((actor, index) => (
+            <span key={actor}>
+              <a
+                href={`https://www.google.com/search?q=${encodeURIComponent(
+                  actor
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {actor}
+              </a>
+              {index < imdbRating.Actors.split(", ").length - 1 && ", "}
+            </span>
+          ))}
+        </p>
+        <p>
           <strong>IMDb: </strong>
           {imdbRating?.imdbRating || "N/A"} ({imdbRating?.imdbVotes || "N/A"})
         </p>
