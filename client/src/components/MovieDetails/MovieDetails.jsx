@@ -1,15 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect, useState, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
-import styles from "./MovieDetailsStyles.module.css";
 import TrailerModal from "../TrailerModal/TrailerModal";
 import MovieSites from "./MovieSites";
 import fallbackImg from "../../assets/fallbackImg.jpg";
 import UserContext from "../../context/UserContext";
 import * as userPlaylistService from "../../services/userListService";
-import { formattedDate } from "../../utils/dateConvert";
 import convertToEmbedUrl from "../../utils/embedUrlCovert";
+import MovieBanner from "./MovieBanner";
+import MovieInfo from "./MovieInfo";
+
+// --- LocalStorage Helpers ---
+const getStoredMovies = () => JSON.parse(localStorage.getItem("movies")) || [];
+const setStoredMovies = (movies) =>
+  localStorage.setItem("movies", JSON.stringify(movies));
 
 export default function MovieDetails({
   movie,
@@ -21,199 +26,120 @@ export default function MovieDetails({
   const [isSaved, setIsSaved] = useState(false);
   const { media_type } = useParams();
   const { userData, setUserData } = useContext(UserContext);
-
   const userId = userData?._id;
 
+  // --- Memoized Derived Values ---
+  const title = useMemo(() => movie?.title || movie?.name, [movie]);
+  const runtime = useMemo(
+    () => movie?.runtime || movie?.episode_run_time?.[0],
+    [movie]
+  );
+  const releaseDate = useMemo(
+    () => movie?.release_date || movie?.first_air_date,
+    [movie]
+  );
+  const actors = useMemo(
+    () => imdbRating?.Actors?.split(", ") || [],
+    [imdbRating]
+  );
+  const embedUrl = useMemo(
+    () => (trailerUrl ? convertToEmbedUrl(trailerUrl) : null),
+    [trailerUrl]
+  );
+
+  // --- React Query Mutations ---
   const addMovieMutation = useMutation({
     mutationFn: ({ userId, movie }) =>
       userPlaylistService.addMovie(userId, movie),
-    onMutate: async ({ movie }) => {
-      setIsSaved(true),
-        setUserData((prev) => ({
-          ...prev,
-          movies: [...(prev.movies || []), movie],
-        }));
+    onMutate: ({ movie }) => {
+      setIsSaved(true);
+      setUserData((prev) => ({
+        ...prev,
+        movies: [...(prev.movies || []), movie],
+      }));
     },
-    onError: (error) => {
-      console.log("Erro adding movie", error.message);
-    },
+    onError: (error) => console.log("Error adding movie:", error.message),
   });
 
   const removeMovieMutation = useMutation({
     mutationFn: ({ userId, movieId }) =>
       userPlaylistService.removeMovie(userId, movieId),
-    onMutate: async ({ movieId }) => {
+    onMutate: ({ movieId }) => {
       setIsSaved(false);
       setUserData((prev) => ({
-        movies: [prev.movies || []].filter((x) => x.id != movieId),
+        ...prev,
+        movies: (prev.movies || []).filter((x) => x.id !== movieId),
       }));
     },
+    onError: (error) => console.log("Error removing movie:", error.message),
   });
 
-  const handleAddMovie = (movie) => {
+  // --- Handlers ---
+  const handleAddMovie = () => {
+    const movieData = { ...movie, media_type };
     if (userId) {
-      addMovieMutation.mutate({ userId, movie: { ...movie, media_type } });
+      addMovieMutation.mutate({ userId, movie: movieData });
     } else {
-      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+      const storedMovies = getStoredMovies();
       if (!storedMovies.some((x) => x.id === movie.id)) {
-        storedMovies.push({ ...movie, media_type });
-        localStorage.setItem("movies", JSON.stringify(storedMovies));
+        storedMovies.push(movieData);
+        setStoredMovies(storedMovies);
         setIsSaved(true);
       }
     }
   };
 
-  const handleRemoveMovie = (movieId) => {
+  const handleRemoveMovie = () => {
     if (userId) {
-      removeMovieMutation.mutate({ userId, movieId });
+      removeMovieMutation.mutate({ userId, movieId: movie.id });
     } else {
-      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
-      const updatedMovies = storedMovies.filter((m) => m.id !== movieId);
-      localStorage.setItem("movies", JSON.stringify(updatedMovies));
+      const updatedMovies = getStoredMovies().filter((m) => m.id !== movie.id);
+      setStoredMovies(updatedMovies);
       setIsSaved(false);
     }
   };
 
+  // --- Check if movie is saved ---
   useEffect(() => {
     if (!movie) return;
-
-    if (userId) {
-      const exists = userData.movies?.some((x) => x.id === movie.id);
-      setIsSaved(exists);
-    } else {
-      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
-      const exists = storedMovies.some((x) => x.id === movie.id);
-      setIsSaved(exists);
-    }
+    const exists = userId
+      ? userData.movies?.some((x) => x.id === movie.id)
+      : getStoredMovies().some((x) => x.id === movie.id);
+    setIsSaved(exists);
   }, [movie, userId, userData.movies]);
 
   if (!movie) return null;
 
   return (
     <section className="container">
-      {trailerUrl && isModalOpen && (
+      {embedUrl && (
         <TrailerModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          trailerUrl={convertToEmbedUrl(trailerUrl)}
+          trailerUrl={embedUrl}
         />
       )}
 
-      <div className={styles.movieBanner}>
-        <div className={styles.mBannerImg}>
-          <img
-            src={
-              movie.backdrop_path
-                ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`
-                : fallbackImg
-            }
-            alt={`Backdrop image for ${movie.title || movie.name}`}
-          />
-        </div>
-        <div className={styles.bannerContainer}>
-          <div className={styles.titleContainer}>
-            <h1 className={styles.movieTitle}>{movie.title || movie.name}</h1>
-            <div className={styles.moreAbout}>
-              <div className={styles.raiting}>
-                <span>IMDB {imdbRating?.imdbRating || "N/A"}</span>
-              </div>
-              <div className={styles.metaData}>
-                <span>
-                  <i className="fa-regular fa-calendar"></i>
-                  {formattedDate(movie?.release_date || movie?.first_air_date)}
-                </span>
-                {(movie.runtime || movie.episode_run_time?.[0]) && (
-                  <span>
-                    <i className="fa-regular fa-clock"></i>
-                    {movie.runtime || movie.episode_run_time[0]}m
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className={styles.categories}>
-              {movie.genres?.map((genre) => (
-                <Link key={genre.id} to={`/explore?genres=${genre.id}`}>
-                  {genre.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div
-          className={styles.playButton}
-          onClick={() => setIsModalOpen(true)}
-          aria-label={`Play trailer for ${movie.title}`}
-        >
-          <i className="fa-solid fa-circle-play"></i>
-        </div>
-      </div>
-      <MovieSites title={movie.title || movie.name} trName={trName} />
+      <MovieBanner
+        movie={movie}
+        title={title}
+        setIsModalOpen={setIsModalOpen}
+        fallbackImg={fallbackImg}
+        raiting={imdbRating?.imdbRating}
+      />
 
-      <div className={styles.movieDetails}>
-        <div className={styles.buttonsContainer}>
-          <div className={styles.buttonsContainer}>
-            {isSaved ? (
-              <div
-                className={styles.button}
-                onClick={() => handleRemoveMovie(movie.id)}
-              >
-                <i className="fa-solid fa-trash"></i>
-                Remove
-              </div>
-            ) : (
-              <div
-                className={styles.button}
-                onClick={() => handleAddMovie(movie)}
-              >
-                <i className="fa-solid fa-clapperboard"></i>
-                Watch Later
-              </div>
-            )}
-          </div>
-        </div>
-        <h1>{movie.tagline}</h1>
-        <p>{movie.overview}</p>
-        {movie.budget && (
-          <p>
-            <strong>Budget: </strong> ${movie.budget.toLocaleString()}
-          </p>
-        )}
-        <p>
-          <strong>Distributed by: </strong>
-          {movie.production_companies?.length > 0 ? (
-            movie.production_companies.map((company, index) => (
-              <span key={company.id}>
-                {company.name}
-                {index < movie.production_companies.length - 1 && ", "}
-              </span>
-            ))
-          ) : (
-            <span>Not Available</span>
-          )}
-        </p>
-        <p>
-          <strong>Actors: </strong>
+      <MovieSites title={title} trName={trName} />
 
-          {imdbRating?.Actors.split(", ").map((actor, index) => (
-            <span key={actor}>
-              <a
-                href={`https://www.google.com/search?q=${encodeURIComponent(
-                  actor
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {actor}
-              </a>
-              {index < imdbRating.Actors.split(", ").length - 1 && ", "}
-            </span>
-          ))}
-        </p>
-        <p>
-          <strong>IMDb: </strong>
-          {imdbRating?.imdbRating || "N/A"} ({imdbRating?.imdbVotes || "N/A"})
-        </p>
-      </div>
+      <MovieInfo
+        movie={movie}
+        imdbRating={imdbRating}
+        actors={actors}
+        runtime={runtime}
+        releaseDate={releaseDate}
+        isSaved={isSaved}
+        onAdd={handleAddMovie}
+        onRemove={handleRemoveMovie}
+      />
     </section>
   );
 }
