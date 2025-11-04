@@ -3,8 +3,19 @@ import styles from "./TrailerModalStyles.module.css";
 import { lockScroll, unlockScroll } from "../../utils/scrollLock.js";
 
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
-  if (!isOpen) return null;
+  // Handle scroll lock when open changes
+  useEffect(() => {
+    if (isOpen) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
 
+    // Ensure cleanup on unmount too
+    return () => unlockScroll();
+  }, [isOpen]);
+
+  // Escape key close
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === "Escape") {
@@ -12,16 +23,15 @@ export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
       }
     }
 
-    document.addEventListener("keydown", handleKeyDown);
+    if (isOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
-  useEffect(() => {
-    lockScroll();
-    return () => unlockScroll();
-  }, []);
+  if (!isOpen) return null;
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
