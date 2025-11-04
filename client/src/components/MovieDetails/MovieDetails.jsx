@@ -16,12 +16,7 @@ const getStoredMovies = () => JSON.parse(localStorage.getItem("movies")) || [];
 const setStoredMovies = (movies) =>
   localStorage.setItem("movies", JSON.stringify(movies));
 
-export default function MovieDetails({
-  movie,
-  trailerUrl,
-  imdbRating,
-  trName,
-}) {
+export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { media_type } = useParams();
@@ -128,7 +123,7 @@ export default function MovieDetails({
         raiting={imdbRating?.imdbRating}
       />
 
-      <MovieSites title={title} trName={trName} />
+      <MovieSites title={title} />
 
       <MovieInfo
         movie={movie}

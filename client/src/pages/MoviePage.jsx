@@ -18,7 +18,6 @@ export default function MoviePage() {
     isLoading: movieLoading,
     error: movieError,
   } = useMovieDetails(id, media_type);
-  const { data: TRnaming } = useMovieDetails(id, media_type, "tr");
 
   const {
     data: trailerUrl,
@@ -61,7 +60,6 @@ export default function MoviePage() {
         movie={movie}
         trailerUrl={trailerUrl}
         imdbRating={imdbRating}
-        trName={TRnaming?.title || TRnaming?.name || undefined}
       />
       <PopularMovies
         title={"You may also like..."}

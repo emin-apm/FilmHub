@@ -40,11 +40,7 @@ export default function MovieSites({ title, trName }) {
               <td>720p</td>
               <td>
                 <a
-                  href={
-                    x.language === "TR" && trName
-                      ? `${x.site}${trName}`
-                      : `${x.site}${title}`
-                  }
+                  href={`${x.site}${title}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.checkButton}
