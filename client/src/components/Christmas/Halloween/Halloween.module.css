@@ -1,0 +1,44 @@
+.halloweenContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.halloweenItems {
+  position: absolute;
+  top: 2%; /* start near the top */
+  left: var(--left, 50%);
+  color: white;
+  font-size: var(--size, 1em);
+  opacity: var(--opacity, 0.9);
+  animation: floatAround var(--duration, 10s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* 👻 Smooth haunting float: moves down to mid, then up again with slight circle */
+@keyframes floatAround {
+  0% {
+    transform: translate(-50%, -10%) rotate(0deg) translateX(15px) rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%, 20%) rotate(90deg) translateX(15px)
+      rotate(-90deg);
+  }
+  50% {
+    transform: translate(-50%, 50%) rotate(180deg) translateX(25px)
+      rotate(-180deg);
+  }
+  75% {
+    transform: translate(-50%, 20%) rotate(270deg) translateX(35px)
+      rotate(-270deg);
+  }
+  100% {
+    transform: translate(-50%, -10%) rotate(360deg) translateX(45px)
+      rotate(-360deg);
+  }
+}
