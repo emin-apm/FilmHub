@@ -88,6 +88,12 @@ html::-webkit-scrollbar-thumb {
   height: 90vh;
 }
 
+.scroll-locked {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
+
 @media (max-width: 520px) {
   .container {
     max-width: 90%;
