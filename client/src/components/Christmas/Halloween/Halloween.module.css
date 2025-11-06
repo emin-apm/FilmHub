@@ -12,7 +12,7 @@
 .halloweenItems {
   position: absolute;
   top: 2%; /* start near the top */
-  left: var(--left, 50%);
+  left: var(--left, 0);
   color: white;
   font-size: var(--size, 1em);
   opacity: var(--opacity, 0.9);
@@ -20,7 +20,6 @@
   animation-delay: var(--delay, 0s);
 }
 
-/* 👻 Smooth haunting float: moves down to mid, then up again with slight circle */
 @keyframes floatAround {
   0% {
     transform: translate(-50%, -10%) rotate(0deg) translateX(15px) rotate(0deg);

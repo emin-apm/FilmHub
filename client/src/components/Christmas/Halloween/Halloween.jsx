@@ -1,13 +1,27 @@
+import { useEffect, useState } from "react";
 import styles from "./Halloween.module.css";
 
 const Halloween = () => {
+  const [itemCount, setItemCount] = useState(20);
+
+  useEffect(() => {
+    const updateItemCount = () => {
+      setItemCount(window.innerWidth < 768 ? 6 : 16);
+    };
+
+    updateItemCount(); // run once
+    window.addEventListener("resize", updateItemCount);
+
+    return () => window.removeEventListener("resize", updateItemCount);
+  }, []);
+
   const symbols = ["🎃", "🦇", "💀", "🕷️", "🕯️", "🐈‍⬛"];
-  const items = Array.from({ length: 10 });
+  const items = Array.from({ length: itemCount });
 
   return (
     <div className={styles.halloweenContainer}>
       {items.map((_, i) => {
-        const left = 10 + Math.random() * 100;
+        const left = 10 + Math.random() * 80;
         const size = 0.8 + Math.random() * 1.5;
         const duration = 8 + Math.random() * 6;
         const delay = Math.random() * 6;
