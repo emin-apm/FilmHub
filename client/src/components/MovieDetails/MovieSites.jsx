@@ -6,7 +6,7 @@ export default function MovieSites({ title }) {
     const encoded = encodeURIComponent(title);
 
     if (site.includes("hdtoday.cc")) {
-      return encoded.replaceAll("%20", "-20");
+      return encoded.replaceAll("%20", "-");
     }
 
     return encoded;
