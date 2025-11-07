@@ -46,6 +46,24 @@
       "language": "EN",
       "site": "https://ww4.fmovies.co/search/?q=",
       "name": "FMovies"
+    },
+    {
+      "id": "8",
+      "language": "TR",
+      "site": "https://hdtoday.cc/search/",
+      "name": "HDTODAY"
+    },
+    {
+      "id": "9",
+      "language": "BG",
+      "site": "https://flixbaba.is/search?q=",
+      "name": "FLIXBABA"
+    },
+    {
+      "id": "10",
+      "language": "BG",
+      "site": "https://www.cinezo.net/search?q=red",
+      "name": "Cinezo"
     }
   ]
 }
