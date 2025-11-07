@@ -1,7 +1,17 @@
 import styles from "./MovieDetailsStyles.module.css";
 import { sites } from "../../data/movieSites.json";
 
-export default function MovieSites({ title, trName }) {
+export default function MovieSites({ title }) {
+  function formatTitleForSite(title, site) {
+    const encoded = encodeURIComponent(title);
+
+    if (site.includes("hdtoday.cc")) {
+      return encoded.replaceAll("%20", "-20");
+    }
+
+    return encoded;
+  }
+
   return (
     <div className={styles.movieSite}>
       <table className={styles.siteBox}>
@@ -40,7 +50,7 @@ export default function MovieSites({ title, trName }) {
               <td>720p</td>
               <td>
                 <a
-                  href={`${x.site}${title}`}
+                  href={`${x.site}${formatTitleForSite(title, x.site)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.checkButton}
