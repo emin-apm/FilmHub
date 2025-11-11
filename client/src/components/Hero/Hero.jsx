@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 export default function Hero() {
   return (
     <section className={`${styles.hero} container`}>
-      <img src={hero} alt="hero img" />
+      <img
+        src={hero}
+        alt="hero img"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      />
       <div className={styles.heroText}>
         <h1 className={styles.heroTitle}>
           Film<span>Hub</span>
