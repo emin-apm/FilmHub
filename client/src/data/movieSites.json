@@ -64,6 +64,12 @@
       "language": "BG",
       "site": "https://www.cinezo.net/search?q=",
       "name": "Cinezo"
+    },
+    {
+      "id": "11",
+      "language": "EN",
+      "site": "https://filmex.to/search?q=",
+      "name": "Flimex"
     }
   ]
 }
