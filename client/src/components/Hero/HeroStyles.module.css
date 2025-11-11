@@ -15,6 +15,7 @@
   border-radius: 0.5rem;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
   filter: brightness(0.44);
+  aspect-ratio: 2000/900;
 }
 
 .heroText {

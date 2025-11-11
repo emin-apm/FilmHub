@@ -10,7 +10,6 @@ export default function MovieBanner({
   fallbackImg,
   raiting,
 }) {
-  console.log(raiting);
   return (
     <div className={styles.movieBanner}>
       <div className={styles.mBannerImg}>
