@@ -4,19 +4,33 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.socialsContainer}>
-        <a href="www.facebook.com" target="_blank">
-          <i className="fa-brands fa-square-facebook"></i>
+        <a
+          href="https://www.facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit our Facebook page"
+        >
+          <i className="fa-brands fa-facebook"></i>
         </a>
-        <a href="" target="_blank">
-          <i className="fa-brands fa-square-instagram"></i>
+
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit our Instagram profile"
+        >
+          <i className="fa-brands fa-instagram"></i>
         </a>
-        <a href="" target="_blank">
-          <i className="fa-brands fa-square-twitter"></i>
+
+        <a
+          href="https://www.twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit our Twitter profile"
+        >
+          <i className="fa-brands fa-twitter"></i>
         </a>
       </div>
-      <span className={styles.copyRight}>
-        All rights reserved &copy; 2025 - Emin Apturaim
-      </span>
     </footer>
   );
 }

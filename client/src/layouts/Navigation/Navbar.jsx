@@ -52,7 +52,7 @@ export default function Navbar() {
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <button type="submit">
+          <button type="submit" aria-label="Search">
             <i className="fa-solid fa-magnifying-glass"></i>
           </button>
         </form>
