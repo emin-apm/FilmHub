@@ -296,6 +296,7 @@
 @media (max-width: 800px) {
   .movieBanner {
     min-height: 200px;
+    height: 360px;
   }
 
   .bannerContainer {
