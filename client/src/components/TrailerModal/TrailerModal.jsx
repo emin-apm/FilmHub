@@ -1,8 +1,13 @@
 import { useEffect } from "react";
 import styles from "./TrailerModalStyles.module.css";
 import { lockScroll, unlockScroll } from "../../utils/scrollLock.js";
+import { useParams } from "react-router-dom";
 
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
+  const { id } = useParams();
+
+  const realUrl = `https://multiembed.mov/?video_id=${id}&tmdb=1`;
+
   // Handle scroll lock when open changes
   useEffect(() => {
     if (isOpen) {
@@ -42,7 +47,7 @@ export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
         <div className={styles.videoWrapper}>
           <iframe
             key={isOpen ? "open" : "closed"}
-            src={trailerUrl}
+            src={realUrl}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="Trailer"
