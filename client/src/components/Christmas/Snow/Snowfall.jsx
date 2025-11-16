@@ -37,21 +37,19 @@ const Snowfall = () => {
         const opacity = 0.5 + Math.random() * 0.5;
 
         return (
-          <>
-            <div
-              key={i}
-              className={styles.snowflake}
-              style={{
-                "--left": `${left}%`,
-                "--size": `${size}em`,
-                "--duration": `${duration}s`,
-                "--delay": `${delay}s`,
-                "--opacity": opacity,
-              }}
-            >
-              ❄
-            </div>
-          </>
+          <div
+            key={i}
+            className={styles.snowflake}
+            style={{
+              "--left": `${left}%`,
+              "--size": `${size}em`,
+              "--duration": `${duration}s`,
+              "--delay": `${delay}s`,
+              "--opacity": opacity,
+            }}
+          >
+            ❄
+          </div>
         );
       })}
     </div>
