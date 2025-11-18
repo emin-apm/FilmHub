@@ -6,7 +6,10 @@ import { useParams } from "react-router-dom";
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
   const { id } = useParams();
 
-  const realUrl = `https://multiembed.mov/?video_id=${id}&tmdb=1`;
+  const realUrl = `https://111movies.com/movie/${id}`;
+
+  //   https://embedmaster.link/movie/{TMBD}
+  // https://vidsrc.cc/v2/embed/movie/{TMBD}
 
   // Handle scroll lock when open changes
   useEffect(() => {
