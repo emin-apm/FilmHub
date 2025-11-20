@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 999;
   touch-action: none;
 }
@@ -37,4 +38,57 @@
   border: none;
   border-radius: 8px;
   height: 70vh;
+}
+
+.serverContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.serverButton {
+  padding: 3px 8px;
+  margin: 10px 2px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s ease;
+  white-space: nowrap;
+}
+
+.serverButton:hover {
+  background: var(--main-color);
+  color: #000;
+}
+.active {
+  background: var(--main-color);
+  border-color: var(--main-color);
+  color: #000;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .serverContainer {
+    gap: 0.3px 3px;
+    margin-bottom: 0.5em;
+  }
+  .serverButton {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin: 2px 2px;
+  }
+
+  .videoWrapper iframe {
+    height: 50vh;
+  }
+
+  .closeButton {
+    font-size: 20px;
+    top: 6px;
+    right: 10px;
+  }
 }
