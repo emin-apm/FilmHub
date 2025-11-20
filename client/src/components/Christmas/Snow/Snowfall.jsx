@@ -6,9 +6,9 @@ const Snowfall = () => {
 
   const calculateFlakes = () => {
     const width = window.innerWidth;
-    if (width < 768) return 20;
-    if (width < 1200) return 40;
-    return 50;
+    if (width < 768) return 6;
+    if (width < 1200) return 10;
+    return 15;
   };
 
   useEffect(() => {
