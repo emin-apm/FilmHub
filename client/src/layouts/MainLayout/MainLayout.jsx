@@ -18,7 +18,7 @@ export default function MainLayout() {
       <Navbar />
 
       <Suspense fallback={null}>
-        <Snowfall />
+        {/* <Snowfall /> */}
         {/* <Halloween /> */}
       </Suspense>
 

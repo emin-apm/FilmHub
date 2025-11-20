@@ -1,15 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./TrailerModalStyles.module.css";
 import { lockScroll, unlockScroll } from "../../utils/scrollLock.js";
 import { useParams } from "react-router-dom";
+import { streamServers } from "../../data/streamServer.js";
 
 export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
-  const { id } = useParams();
+  const [selectedServer, setSelectedServer] = useState("cinezo");
 
-  const realUrl = `https://111movies.com/movie/${id}`;
+  const { id, media_type } = useParams();
 
-  //   https://embedmaster.link/movie/{TMBD}
-  // https://vidsrc.cc/v2/embed/movie/{TMBD}
+  const realUrl =
+    media_type === "movie"
+      ? streamServers[selectedServer].movie(id)
+      : streamServers[selectedServer].tv(id);
 
   // Handle scroll lock when open changes
   useEffect(() => {
@@ -41,12 +44,33 @@ export default function TrailerModal({ isOpen, onClose, trailerUrl }) {
 
   if (!isOpen) return null;
 
+  const names = Object.keys(streamServers);
+  console.log(names);
+
+  function handleServerChange(serverName) {
+    setSelectedServer(serverName);
+  }
+
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.serverContainer}>
+          {names.map((name) => (
+            <button
+              key={name}
+              className={`${styles.serverButton} ${
+                selectedServer === name ? styles.active : ""
+              }`}
+              onClick={() => handleServerChange(name)}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
         <button className={styles.closeButton} onClick={onClose}>
           ✖
         </button>
+
         <div className={styles.videoWrapper}>
           <iframe
             key={isOpen ? "open" : "closed"}
