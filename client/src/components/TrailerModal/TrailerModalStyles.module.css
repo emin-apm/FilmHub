@@ -50,7 +50,7 @@
 
 .serverButton {
   padding: 3px 8px;
-  margin: 10px 2px;
+  margin-bottom: 8px;
   border-radius: 8px;
   border: 1px solid #444;
   background: #222;
@@ -71,6 +71,27 @@
   font-weight: 600;
 }
 
+.seasonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 0.3em;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  max-height: 100px;
+  margin-top: 0.5em;
+}
+
+.episodeContainer {
+  max-height: 100px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+  padding-right: 5px;
+}
+
 @media (max-width: 480px) {
   .serverContainer {
     gap: 0.3px 3px;
@@ -79,7 +100,7 @@
   .serverButton {
     padding: 5px 10px;
     font-size: 0.8rem;
-    margin: 2px 2px;
+    margin-bottom: 5px;
   }
 
   .videoWrapper iframe {
