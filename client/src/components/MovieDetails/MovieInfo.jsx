@@ -4,8 +4,6 @@ export default function MovieInfo({
   movie,
   imdbRating,
   actors,
-  runtime,
-  releaseDate,
   isSaved,
   onAdd,
   onRemove,
