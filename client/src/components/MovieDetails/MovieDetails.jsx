@@ -107,13 +107,11 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
 
   return (
     <section className="container">
-      {embedUrl && (
-        <TrailerModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          trailerUrl={embedUrl}
-        />
-      )}
+      <TrailerModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        seasons={movie.seasons}
+      />
 
       <MovieBanner
         movie={movie}
