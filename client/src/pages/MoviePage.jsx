@@ -35,7 +35,10 @@ export default function MoviePage() {
     data: similarMovies,
     isLoading: similarMoviesIsLoading,
     error: similaMoviesError,
-  } = useGetData("similarMovies", `${BASE_URL}/movie/${id}/recommendations`);
+  } = useGetData(
+    "similarMovies",
+    `${BASE_URL}/${media_type}/${id}/recommendations`
+  );
 
   const isLoading = movieLoading || trailerLoading;
   const error = movieError || trailerError;
