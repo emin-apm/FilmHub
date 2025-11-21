@@ -31,6 +31,14 @@ export default function Footer() {
           <i className="fa-brands fa-twitter"></i>
         </a>
       </div>
+      <div className={styles.copyRigts}>
+        <p>&copy; 2025 Filmhub-dev All Rights Reserved.</p>
+        <p>
+          Note: Filmhub-dev does not host any files itself but fetches the data
+          from the TMDB and only displays content from 3rd party providers.
+          Legal issues should be taken up with them.
+        </p>
+      </div>
     </footer>
   );
 }
