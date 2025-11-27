@@ -10,7 +10,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           aria-label="Visit our Facebook page"
         >
-          <i className="fa-brands fa-facebook"></i>
+          <i className="fa-brands fa-square-facebook"></i>
         </a>
 
         <a
@@ -23,20 +23,20 @@ export default function Footer() {
         </a>
 
         <a
-          href="https://www.twitter.com"
+          href="https://discord.gg/scUY5E89tT"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Visit our Twitter profile"
+          aria-label="Join our Discord server"
         >
-          <i className="fa-brands fa-twitter"></i>
+          <i className="fa-brands fa-discord"></i>
         </a>
       </div>
       <div className={styles.copyRigts}>
         <p>&copy; 2025 Filmhub-dev All Rights Reserved.</p>
         <p>
-          Note: Filmhub-dev does not host any files itself but fetches the data
-          from the TMDB and only displays content from 3rd party providers.
-          Legal issues should be taken up with them.
+          Note: Filmhub-dev doesn’t store or host any content. It only shows
+          information from TMDB and streams provided by third parties. For legal
+          matters, please contact the external providers.
         </p>
       </div>
     </footer>
