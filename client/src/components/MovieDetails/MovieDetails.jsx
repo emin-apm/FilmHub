@@ -121,8 +121,6 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
         raiting={imdbRating?.imdbRating}
       />
 
-      <MovieSites title={title} />
-
       <MovieInfo
         movie={movie}
         imdbRating={imdbRating}
@@ -133,6 +131,8 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
         onAdd={handleAddMovie}
         onRemove={handleRemoveMovie}
       />
+
+      <MovieSites title={title} />
     </section>
   );
 }
