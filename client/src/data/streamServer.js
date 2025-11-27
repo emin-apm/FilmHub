@@ -1,21 +1,19 @@
-// https://111movies.com/movie/${id}
-// https://api.cinezo.net/embed/tmdb-movie-${id}
-// https://vidfast.pro/movie/${}
-// https://player.videasy.net/movie/${id}
-// https://embedmaster.link/movie/${id}
-// https://player.vidify.top/embed/movie/${id}
-// https://vidsrc.cc/v2/embed/movie/${id}
-// https://vidsrc-embed.ru/embed/movie?tmdb=${id}&ds_lang=bg/
-// https://vidsrc.xyz/embed/movie/${id}
-
 export const streamServers = {
-  vidlink: {
-    movie: (id) => `https://vidlink.pro/movie/${id}`,
-    tv: (id, s, e) => `/tv/${id}/${s}/${e}`,
+  flixer: {
+    movie: (id) => `https://flixer.sh/watch/movie/${id}`,
+    tv: (id, s, e) => `https://flixer.sh/watch/tv/${id}/${s}/${e}`,
   },
   cinezo: {
     movie: (id) => `https://api.cinezo.net/embed/tmdb-movie-${id}`,
     tv: (id, s, e) => `https://api.cinezo.net/embed/tmdb-tv-${id}/${s}/${e}`,
+  },
+  videasy: {
+    movie: (id) => `https://player.videasy.net/movie/${id}`,
+    tv: (id, s, e) => `https://player.videasy.net/tv/${id}/${s}/${e}`,
+  },
+  vidlink: {
+    movie: (id) => `https://vidlink.pro/movie/${id}`,
+    tv: (id, s, e) => `https://vidlink.pro/tv/${id}/${s}/${e}`,
   },
   mapple: {
     movie: (id) => `https://mapple.uk/watch/movie/${id}`,
@@ -23,7 +21,7 @@ export const streamServers = {
   },
   embedmaster: {
     movie: (id) => `https://embedmaster.link/movie/${id}`,
-    tv: (id, s, e) => `/tv/${id}/${s}/${e}`,
+    tv: (id, s, e) => `https://embedmaster.link/tv/${id}/${s}/${e}`,
   },
   _111movies: {
     movie: (id) => `https://111movies.com/movie/${id}`,
@@ -31,15 +29,12 @@ export const streamServers = {
   },
   vidsrc: {
     movie: (id) => `https://vidsrc.xyz/embed/movie/${id}`,
-    tv: (id, s, e) => ``,
+    tv: (id, s, e) =>
+      `https://vidsrc.xyz/embed/tv?tmdb=${id}&season=${s}&episode=${e}`,
   },
   fmovies4u: {
     movie: (id) => `https://fmovies4u.com/embed/tmdb-movie-${id}`,
     tv: (id, s, e) => `https://fmovies4u.com/embed/tmdb-tv-${id}/${s}/${e}`,
-  },
-  videasy: {
-    movie: (id) => `https://player.videasy.net/movie/${id}`,
-    tv: (id, s, e) => `/tv/${id}/${s}/${e}`,
   },
   vidify: {
     movie: (id) => `https://player.vidify.top/embed/movie/${id}`,
