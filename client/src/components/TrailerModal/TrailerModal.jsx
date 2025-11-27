@@ -7,7 +7,7 @@ import { streamServers } from "../../data/streamServer.js";
 export default function TrailerModal({ isOpen, onClose, seasons }) {
   const { id, media_type } = useParams();
 
-  const [selectedServer, setSelectedServer] = useState("cinezo");
+  const [selectedServer, setSelectedServer] = useState("flixer");
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [selectedEpisode, setSelectedEpisode] = useState(1);
   const [iframeSrc, setIframeSrc] = useState("");
