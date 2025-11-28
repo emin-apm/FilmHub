@@ -16,7 +16,7 @@ const getStoredMovies = () => JSON.parse(localStorage.getItem("movies")) || [];
 const setStoredMovies = (movies) =>
   localStorage.setItem("movies", JSON.stringify(movies));
 
-export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
+export default function MovieDetails({ movie, imdbRating }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { media_type } = useParams();
@@ -36,10 +36,6 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
   const actors = useMemo(
     () => imdbRating?.Actors?.split(", ") || [],
     [imdbRating]
-  );
-  const embedUrl = useMemo(
-    () => (trailerUrl ? convertToEmbedUrl(trailerUrl) : null),
-    [trailerUrl]
   );
 
   // --- React Query Mutations ---
@@ -69,7 +65,6 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
     onError: (error) => console.log("Error removing movie:", error.message),
   });
 
-  // --- Handlers ---
   const handleAddMovie = () => {
     const movieData = { ...movie, media_type };
     if (userId) {
@@ -94,7 +89,6 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
     }
   };
 
-  // --- Check if movie is saved ---
   useEffect(() => {
     if (!movie) return;
     const exists = userId
@@ -124,6 +118,7 @@ export default function MovieDetails({ movie, trailerUrl, imdbRating }) {
       <MovieInfo
         movie={movie}
         imdbRating={imdbRating}
+        director={imdbRating?.Director}
         actors={actors}
         runtime={runtime}
         releaseDate={releaseDate}

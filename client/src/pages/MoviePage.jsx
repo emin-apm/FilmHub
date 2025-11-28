@@ -19,17 +19,17 @@ export default function MoviePage() {
     error: movieError,
   } = useMovieDetails(id, media_type);
 
-  const {
-    data: trailerUrl,
-    isLoading: trailerLoading,
-    error: trailerError,
-  } = useMovieTrailer(id, media_type);
+  // const {
+  //   data: trailerUrl,
+  //   isLoading: trailerLoading,
+  //   error: trailerError,
+  // } = useMovieTrailer(id, media_type);
 
   const {
     data: imdbRating,
     isLoading: ratingLoading,
     error: ratingError,
-  } = useImdbRating(movie?.imdb_id);
+  } = useImdbRating(id, media_type, movie?.imdb_id);
 
   const {
     data: similarMovies,
@@ -40,8 +40,8 @@ export default function MoviePage() {
     `${BASE_URL}/${media_type}/${id}/recommendations`
   );
 
-  const isLoading = movieLoading || trailerLoading;
-  const error = movieError || trailerError;
+  const isLoading = movieLoading;
+  const error = movieError;
 
   if (isLoading)
     return (
@@ -55,15 +55,10 @@ export default function MoviePage() {
         <div className={"error"}>Error loading movie...</div>
       </div>
     );
-
   return (
     <>
       <br />
-      <MovieDetails
-        movie={movie}
-        trailerUrl={trailerUrl}
-        imdbRating={imdbRating}
-      />
+      <MovieDetails movie={movie} imdbRating={imdbRating} />
       <PopularMovies
         title={"You may also like..."}
         movies={similarMovies}
