@@ -270,6 +270,14 @@
   scale: 1.07;
 }
 
+.infoContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2em;
+}
+
 /* Responsive */
 @media (min-width: 1450px) {
   .movieBanner {
@@ -294,6 +302,12 @@
 }
 
 @media (max-width: 800px) {
+  .infoContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3em;
+  }
+
   .movieBanner {
     min-height: 200px;
     height: 360px;
@@ -308,7 +322,7 @@
   }
 
   .movieDetails {
-    margin: 30px auto 20px auto;
+    margin: 20px auto 20px auto;
   }
   .buttonsContainer {
     flex-direction: column;
