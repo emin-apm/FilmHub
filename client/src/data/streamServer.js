@@ -4,8 +4,9 @@ export const streamServers = {
     tv: (id, s, e) => `https://flixer.sh/watch/tv/${id}/${s}/${e}`,
   },
   cinezo: {
-    movie: (id) => `https://api.cinezo.net/media/tmdb-movie-${id}`,
-    tv: (id, s, e) => `https://api.cinezo.net/media/tmdb-tv-${id}/${s}/${e}`,
+    // movie: (id) => `https://api.cinezo.net/media/tmdb-movie-${id}`,
+    movie: (id) => `https://api.cinezo.net/embed/tmdb-movie-${id}`,
+    tv: (id, s, e) => `https://api.cinezo.net/embed/tmdb-tv-${id}/${s}/${e}`,
   },
   videasy: {
     movie: (id) => `https://player.videasy.net/movie/${id}`,
