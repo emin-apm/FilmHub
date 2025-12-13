@@ -32,12 +32,17 @@
   color: white;
   cursor: pointer;
 }
-
+.videoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
 .videoWrapper iframe {
-  width: 100%;
+  width: 90%;
+  height: 100%;
   border: none;
   border-radius: 8px;
-  height: 70vh;
 }
 
 .serverContainer {
@@ -64,6 +69,25 @@
   background: var(--main-color);
   color: #000;
 }
+
+.tvShowButtons {
+  padding: 2px 6px;
+  margin-bottom: 1px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s ease;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.tvShowButtons:hover {
+  background: var(--main-color);
+  color: #000;
+}
+
 .active {
   background: var(--main-color);
   border-color: var(--main-color);
@@ -87,8 +111,8 @@
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 10px;
+  gap: 3px;
+  margin-top: 6px;
   padding-right: 5px;
 }
 

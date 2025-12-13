@@ -133,7 +133,7 @@ export default function TrailerModal({ isOpen, onClose, seasons }) {
                 .map((season) => (
                   <button
                     key={season.season_number}
-                    className={`${styles.serverButton} ${
+                    className={`${styles.tvShowButtons} ${
                       selectedSeason === season.season_number
                         ? styles.active
                         : ""
@@ -143,7 +143,7 @@ export default function TrailerModal({ isOpen, onClose, seasons }) {
                       setSelectedEpisode(1);
                     }}
                   >
-                    Season {season.season_number}
+                    Season{season.season_number}
                   </button>
                 ))}
             </div>
@@ -154,7 +154,7 @@ export default function TrailerModal({ isOpen, onClose, seasons }) {
                 (ep) => (
                   <button
                     key={ep}
-                    className={`${styles.serverButton} ${
+                    className={`${styles.tvShowButtons} ${
                       selectedEpisode === ep ? styles.active : ""
                     }`}
                     onClick={() => setSelectedEpisode(ep)}
