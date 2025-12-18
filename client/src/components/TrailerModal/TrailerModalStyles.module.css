@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70vh;
+  height: 75vh;
 }
 .videoWrapper iframe {
   width: 90%;
@@ -117,14 +117,24 @@
 }
 
 @media (max-width: 480px) {
+  .videoWrapper {
+    height: 55vh;
+  }
+  .videoWrapper iframe {
+    width: 90%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+  }
+
   .serverContainer {
     gap: 0.3px 3px;
-    margin-bottom: 0.5em;
+    margin-bottom: initial;
   }
   .serverButton {
-    padding: 5px 10px;
+    padding: 2px 5px;
     font-size: 0.8rem;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
   }
 
   .videoWrapper iframe {
