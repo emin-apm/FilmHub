@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import profilImg from "../assets/profilImg.png";
 import { getBiggerGoogleProfilePic } from "../utils/getBiggerGooglePic";
 
+const backendUrl = import.meta.env.VITE_API_BASE_BACKEND_URL;
+
 let UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -21,7 +23,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:5000/user/refresh-token", {
+        const res = await fetch(`${backendUrl}/user/refresh-token`, {
           method: "POST",
           credentials: "include",
         });
