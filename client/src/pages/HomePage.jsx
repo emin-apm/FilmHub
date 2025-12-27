@@ -12,14 +12,14 @@ export default function HomePage() {
   } = useGetData("popularMovies", `${BASE_URL}/movie/popular`);
 
   const {
-    data: topRated,
-    isLoading: topRatedIsLoading,
-    error: topRatedError,
-  } = useGetData("topRatedMovies", `${BASE_URL}/movie/top_rated`);
+    data: trendingMovieWeek,
+    isLoading: trendingMovieWeekLoading,
+    error: trendingMovieWeekError,
+  } = useGetData("trendingMovieWeek", `${BASE_URL}/trending/movie/week`);
 
   const {
-    data: latestMovies,
-    isLoading: latestIsLoading,
+    data: upcominMovies,
+    isLoading: upcomingMoviesLoader,
     error: latestError,
   } = useGetData("latestMovie", `${BASE_URL}/movie/upcoming`);
 
@@ -38,17 +38,17 @@ export default function HomePage() {
         isLoading={popularIsLoading}
       />
       <PopularMovies
-        title="Latest"
-        movies={latestMovies}
-        isLoading={latestIsLoading}
+        title="Trending This Week"
+        movies={trendingMovieWeek}
+        isLoading={trendingMovieWeekLoading}
       />
       <PopularMovies
-        title="Top rated of all times"
-        movies={topRated}
-        isLoading={topRatedIsLoading}
+        title="Upcoming Movies"
+        movies={upcominMovies}
+        isLoading={upcomingMoviesLoader}
       />
       <PopularMovies
-        title="TV Shows"
+        title="Trending TV Shows"
         movies={nowPlaying}
         isLoading={nowPlayingIsLoading}
       />
