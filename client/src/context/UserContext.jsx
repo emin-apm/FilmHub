@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch(`${backendUrl}/user/refresh-token`, {
+        const res = await fetch(`${backendUrl}user/refresh-token`, {
           method: "POST",
           credentials: "include",
         });

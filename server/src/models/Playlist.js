@@ -10,6 +10,7 @@ const playlistSchema = new mongoose.Schema(
         img: { type: String },
         date: { type: String },
         genre: [{ type: String }],
+        backdrop_path: { type: String },
       },
     ],
     sharedWith: [

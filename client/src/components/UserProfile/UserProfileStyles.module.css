@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: center;
   gap: 2em;
+  margin-top: 8rem;
 }
 
 .userImg {
@@ -90,21 +91,17 @@
   display: none;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .mediaContainer {
-    padding-top: 4rem;
   }
+}
+
+@media (max-width: 375px) {
   .userImg img {
     width: 300px;
     height: 300px;
   }
   .userInfo {
     font-size: 12px;
-  }
-}
-
-@media (max-width: 500px) {
-  .mediaContainer {
-    padding-top: 4rem;
   }
 }

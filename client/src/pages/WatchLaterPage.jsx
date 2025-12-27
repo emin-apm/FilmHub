@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Catalog from "../components/Catalog/Catalog";
-import useGetData from "../hooks/useGetData";
+import UserContext from "../context/UserContext";
 
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 
@@ -12,12 +12,16 @@ let type = {
 export default function WatchLaterPage() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [movies, setMovies] = useState([]);
+  const { userData, setUserData } = useContext(UserContext);
 
-  // Load movies from localStorage every time this component mounts
   useEffect(() => {
     try {
-      const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
-      setMovies(storedMovies);
+      if (userData.email) {
+        setMovies(userData.movies);
+      } else {
+        const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+        setMovies(storedMovies);
+      }
     } catch {
       setMovies([]);
       console.log("error");
