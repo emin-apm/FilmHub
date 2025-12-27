@@ -28,4 +28,10 @@ app.get("/", (req, res) => {
   res.send("Hello from serverless server!");
 });
 
+// connectDB(mongoURI).then(() => {
+//   app.listen(PORT, () =>
+//     console.log(`🚀 Server running on port ${PORT} with Atlas DB`)
+//   );
+// });
+
 export default app;

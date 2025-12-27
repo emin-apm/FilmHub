@@ -1,6 +1,5 @@
-// api/index.js
 import dotenv from "dotenv";
-dotenv.config(); // Load env vars for Vercel
+dotenv.config();
 
 import connectDB from "../server/src/config/connectDB.js";
 import app from "../server/src/app.js";
