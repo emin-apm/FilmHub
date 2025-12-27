@@ -10,6 +10,7 @@ export default function Catalog({
   handleGenreToggle,
   isLoading,
   error,
+  authLoading,
 }) {
   const sortedGenres = genres
     ? Object.entries(genres).sort(([, a], [, b]) =>
@@ -22,7 +23,6 @@ export default function Catalog({
       <div className={styles.heading}>
         <h2 className={styles.headingTitle}>{title}</h2>
       </div>
-
       {/* Genre buttons */}
       {sortedGenres.length > 0 && (
         <div className={styles.buttonContainer}>
@@ -43,7 +43,9 @@ export default function Catalog({
         </div>
       )}
 
-      {error ? (
+      {authLoading ? (
+        <Spiner />
+      ) : error ? (
         <div className={"error"}>
           <p>Error loading movies...</p>
         </div>
