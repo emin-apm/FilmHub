@@ -25,7 +25,12 @@ const userSchema = new mongoose.Schema(
         title: { type: String, required: true },
         img: { type: String },
         date: { type: String },
-        genre: [{ type: String }],
+        genre: [
+          {
+            name: { type: String, required: true },
+            icon: { type: String },
+          },
+        ],
         addedAt: { type: Date, default: Date.now },
       },
     ],
