@@ -1,2 +1,2 @@
-import index from "../src/index.js";
+import index from "../index.j";
 export default index;
