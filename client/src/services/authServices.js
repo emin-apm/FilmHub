@@ -1,4 +1,5 @@
 import axios from "axios";
+import persistUser from "../utils/localStorageUser";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_BACKEND_URL,
@@ -47,5 +48,5 @@ export function googleSign({ access_token }) {
 }
 
 export function logout() {
-  return request("post", endpoints.logout);
+  return request("post", endpoints.logout), persistUser(null);
 }
