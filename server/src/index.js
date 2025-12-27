@@ -4,6 +4,10 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import router from "./router.js";
 import { logger } from "./middleware/logger.js";
+import connectDB from "./config/connectDB.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -28,10 +32,8 @@ app.get("/", (req, res) => {
   res.send("Hello from serverless server!");
 });
 
-// connectDB(mongoURI).then(() => {
-//   app.listen(PORT, () =>
-//     console.log(`🚀 Server running on port ${PORT} with Atlas DB`)
-//   );
-// });
+// Connect to MongoDB once at cold start (Vercel serverless)
+const mongoURI = process.env.MONGO_URI_ATLAS;
+await connectDB(mongoURI);
 
 export default app;

@@ -1,11 +1,29 @@
-import dotenv from "dotenv";
-dotenv.config();
+// server/src/config/connectDB.js
+import mongoose from "mongoose";
 
-import connectDB from "../server/src/config/connectDB.js";
-import app from "../server/src/app.js";
+let cached = global.mongoose;
 
-// Connect to MongoDB once at cold start
-const mongoURI = process.env.MONGO_URI_ATLAS;
-await connectDB(mongoURI);
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
 
-export default app;
+const connectDB = async (mongoURI) => {
+  if (cached.conn) {
+    return cached.conn; // reuse existing connection
+  }
+
+  if (!cached.promise) {
+    cached.promise = mongoose
+      .connect(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 10000,
+      })
+      .then((mongoose) => mongoose);
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
+};
+
+export default connectDB;
