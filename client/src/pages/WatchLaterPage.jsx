@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Catalog from "../components/Catalog/Catalog";
 import UserContext from "../context/UserContext";
+import Spiner from "../components/Spiner/Spiner";
 
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 
@@ -12,21 +13,23 @@ let type = {
 export default function WatchLaterPage() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [movies, setMovies] = useState([]);
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData, authLoading } = useContext(UserContext);
 
   useEffect(() => {
+    console.log(authLoading);
+    if (authLoading) return;
+
     try {
-      if (userData.email) {
-        setMovies(userData.movies);
+      if (userData._id) {
+        setMovies(userData.movies || []);
       } else {
         const storedMovies = JSON.parse(localStorage.getItem("movies")) || [];
         setMovies(storedMovies);
       }
     } catch {
       setMovies([]);
-      console.log("error");
     }
-  }, []); // empty deps = run once on mount
+  }, [authLoading, userData._id, userData.movies]);
 
   const handleGenreToggle = (genreId) => {
     setSelectedGenres((prev) =>
@@ -45,6 +48,7 @@ export default function WatchLaterPage() {
         selectedGenres={selectedGenres}
         handleGenreToggle={handleGenreToggle}
         genres={type}
+        authLoading={authLoading}
       />
     </>
   );

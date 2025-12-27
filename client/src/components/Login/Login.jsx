@@ -11,6 +11,7 @@ import { lockScroll, unlockScroll } from "../../utils/scrollLock";
 import profilImg from "../../assets/profilImg.png";
 import { loginSchema, registerSchema } from "../../validation/authSchema.js";
 import { getBiggerGoogleProfilePic } from "../../utils/getBiggerGooglePic.js";
+import persistUser from "../../utils/localStorageUser.js";
 
 export default function Login({ onClose }) {
   const { setUserData } = useContext(UserContext);
@@ -36,6 +37,7 @@ export default function Login({ onClose }) {
         movies: user.movies,
         sharedPlaylist: user.sharedPlaylist,
       });
+      persistUser(user);
       onClose();
     },
     onError: (error) => console.error("Login failed:", error.message),
@@ -51,6 +53,7 @@ export default function Login({ onClose }) {
         movies: user.movies,
         sharedPlaylist: user.sharedPlaylist,
       });
+      persistUser(user);
       onClose();
     },
     onError: (error) => console.error("Registration failed:", error.message),
@@ -59,15 +62,19 @@ export default function Login({ onClose }) {
   const googleMutation = useMutation({
     mutationFn: (access_token) => userService.googleSign({ access_token }),
     onSuccess: (user) => {
-      setUserData({
+      const normalizedUser = {
         ...user,
         avatar: user.avatar
           ? getBiggerGoogleProfilePic(user.avatar, 450)
           : profilImg,
-      });
+      };
+
+      setUserData(normalizedUser);
+
+      persistUser(normalizedUser);
+
       onClose();
     },
-
     onError: (error) => console.error("Google login failed", error),
   });
 

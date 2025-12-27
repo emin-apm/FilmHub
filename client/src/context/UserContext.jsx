@@ -1,12 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import profilImg from "../assets/profilImg.png";
 import { getBiggerGoogleProfilePic } from "../utils/getBiggerGooglePic";
+import persistUser from "../utils/localStorageUser";
 
 const backendUrl = import.meta.env.VITE_API_BASE_BACKEND_URL;
 
 let UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [authLoading, setAuthLoading] = useState(true);
+
   const [userData, setUserData] = useState(() => {
     const saved = localStorage.getItem("avatar");
     return {
@@ -39,7 +42,7 @@ export const UserProvider = ({ children }) => {
             sharedPlaylist: [],
             accessToken: null,
           });
-          localStorage.removeItem("avatar");
+          persistUser(null);
           return;
         }
 
@@ -60,21 +63,18 @@ export const UserProvider = ({ children }) => {
         });
 
         // Cache avatar in localStorage
-        localStorage.setItem(
-          "avatar",
-          fetchedUser.avatar
-            ? getBiggerGoogleProfilePic(fetchedUser.avatar, 450)
-            : profilImg
-        );
+        persistUser(fetchedUser);
       } catch (err) {
         console.error("Error checking auth:", err);
+      } finally {
+        setAuthLoading(false);
       }
     };
     checkAuth();
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ userData, setUserData, authLoading }}>
       {children}
     </UserContext.Provider>
   );
