@@ -8,8 +8,9 @@ import styles from "./LoginStyles.module.css";
 import UserContext from "../../context/UserContext";
 import * as userService from "../../services/authServices";
 import { lockScroll, unlockScroll } from "../../utils/scrollLock";
-import porifilImg from "../../assets/profilImg.png";
+import profilImg from "../../assets/profilImg.png";
 import { loginSchema, registerSchema } from "../../validation/authSchema.js";
+import { getBiggerGoogleProfilePic } from "../../utils/getBiggerGooglePic.js";
 
 export default function Login({ onClose }) {
   const { setUserData } = useContext(UserContext);
@@ -29,7 +30,7 @@ export default function Login({ onClose }) {
     mutationFn: ({ email, password }) => userService.login(email, password),
     onSuccess: (user) => {
       setUserData({
-        avatar: user.avatar || porifilImg,
+        avatar: user.avatar || profilImg,
         email: user.email,
         username: user.username,
         movies: user.movies,
@@ -44,7 +45,7 @@ export default function Login({ onClose }) {
     mutationFn: ({ email, password }) => userService.register(email, password),
     onSuccess: (user) => {
       setUserData({
-        avatar: user.avatar || porifilImg,
+        avatar: user.avatar || profilImg,
         email: user.email,
         username: user.username,
         movies: user.movies,
@@ -58,9 +59,15 @@ export default function Login({ onClose }) {
   const googleMutation = useMutation({
     mutationFn: (access_token) => userService.googleSign({ access_token }),
     onSuccess: (user) => {
-      setUserData(user);
+      setUserData({
+        ...user,
+        avatar: user.avatar
+          ? getBiggerGoogleProfilePic(user.avatar, 450)
+          : profilImg,
+      });
       onClose();
     },
+
     onError: (error) => console.error("Google login failed", error),
   });
 
