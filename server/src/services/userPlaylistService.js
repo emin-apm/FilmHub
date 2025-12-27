@@ -9,16 +9,7 @@ export async function addUserMovie(movieData, userId) {
   const alreadyExists = user.movies.some((m) => m.id === movieData.id);
   if (alreadyExists) throw new Error("Movie already in list");
 
-  // Optional: validate genres
-  if (!Array.isArray(movieData.genres)) movieData.genres = [];
-
-  const movieToSave = {
-    id: movieData.id,
-    title: movieData.title,
-    img: movieData.poster_path || movieData.img,
-    date: movieData.release_date || movieData.date,
-    genre: movieData.genres,
-  };
+  const movieToSave = { ...movieData, addedAt: new Date() };
 
   user.movies.push(movieToSave);
   await user.save();
